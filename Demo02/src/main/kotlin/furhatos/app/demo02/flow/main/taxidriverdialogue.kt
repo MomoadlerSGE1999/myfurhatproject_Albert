@@ -12,7 +12,7 @@ val Taxidriverdialogue : State = state() {
         furhat.ask {
             +"Okay fine."
             +delay(340)
-            +"are you here to pick up a client?"
+            +"are you here to pick up a client"
         }}
     onResponse<Yes> {
 
