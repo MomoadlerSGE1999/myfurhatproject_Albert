@@ -29,11 +29,16 @@ val Taxidriverdialogue : State = state() {
         val vollername: String = getName()
         println("Your clients name is $vollername")
 
-
-
         furhat.say("So your clients name is: $vollername?")
         goto(Taxidriverdialogue01)
     }
+        onResponse<No> {
+            furhat.say("Okay then please Sign up at our reception. It was a pleasure trying to help you!")
+            furhat.gesture(Gestures.BigSmile(1.0, 2.0))
+            goto(Taxidriverdialogue01)
+        }
+
+
    }
 
 
