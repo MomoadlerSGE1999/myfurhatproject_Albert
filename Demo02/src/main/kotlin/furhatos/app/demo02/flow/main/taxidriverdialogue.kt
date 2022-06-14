@@ -7,10 +7,10 @@ import furhatos.nlu.common.Yes
 import furhatos.records.User
 import kotlin.concurrent.timer
 
-val Taxidriverdialogue01 : State = state() {
+val Taxidriverdialogue : State = state() {
     onEntry {
         furhat.ask (
-            "Okay fine. Are you here to pick up a client?"
+            "Are you here to pick up a client?"
         )}
     onResponse<Yes> {
 
@@ -30,12 +30,11 @@ val Taxidriverdialogue01 : State = state() {
         println("Your clients name is $vollername")
 
         furhat.say("So your clients name is: $vollername?")
-        goto(Taxidriverdialogue01)
+        goto(Taxidriverdialogue02)
     }
         onResponse<No> {
             furhat.say("Okay then please Sign up at our reception. It was a pleasure trying to help you!")
             furhat.gesture(Gestures.BigSmile(1.0, 2.0))
-            goto(Taxidriverdialogue01)
         }
 
 
