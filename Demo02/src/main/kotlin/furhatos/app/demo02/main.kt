@@ -7,7 +7,7 @@ import furhatos.flow.kotlin.*
 
 class Demo02Skill : Skill() {
     override fun start() {
-        Flow().run(Taxidriverdialogue)
+        Flow().run(Taxidriverdialogue01)
     }
 }
 

@@ -8,13 +8,13 @@ import furhatos.gestures.Gestures
 import furhatos.nlu.common.No
 import furhatos.nlu.common.Yes
 
-val Taxidriverdialogue01 : State = state() {
+val Taxidriverdialogue012 : State = state() {
 
     onEntry {
         furhat.ask("Is that name correct?")
     }
         onResponse<Yes> {
-            furhat.say("Perfect ddeddd, I will figure out where you have to pick up your client")
+            furhat.say("Perfect ${furhat.voice.pause("100ms")}, I will figure out where you have to pick up your client")
         }
         onResponse<No> {
             furhat.say("Then please enter the name of your client again")

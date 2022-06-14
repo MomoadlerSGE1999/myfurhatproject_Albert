@@ -7,7 +7,7 @@ import furhatos.nlu.common.Yes
 import furhatos.records.User
 import kotlin.concurrent.timer
 
-val Taxidriverdialogue : State = state() {
+val Taxidriverdialogue01 : State = state() {
     onEntry {
         furhat.ask (
             "Okay fine. Are you here to pick up a client?"
