@@ -8,7 +8,7 @@ import furhatos.gestures.Gestures
 import furhatos.nlu.common.No
 import furhatos.nlu.common.Yes
 
-val Taxidriverdialogue021 : State = state() {
+val Taxidriverdialogue01 : State = state() {
 
     onEntry {
         furhat.ask("Is that name correct?")
@@ -18,7 +18,7 @@ val Taxidriverdialogue021 : State = state() {
         }
         onResponse<No> {
             furhat.say("Then please enter the name of your client again")
-        goto(Taxidriverdialogue01)
+        goto(Taxidriverdialogue)
         }
 
     }
