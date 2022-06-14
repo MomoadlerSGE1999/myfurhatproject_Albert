@@ -9,11 +9,9 @@ import kotlin.concurrent.timer
 
 val Taxidriverdialogue : State = state() {
     onEntry {
-        furhat.ask {
-            +"Okay fine."
-            +delay(340)
-            +"are you here to pick up a client"
-        }}
+        furhat.ask (
+            "Okay fine. Are you here to pick up a client?"
+        )}
     onResponse<Yes> {
 
         furhat.say("Please type in the sur name of your client"
@@ -30,14 +28,14 @@ val Taxidriverdialogue : State = state() {
         println("Your clients name is $vollername")
 
 
-        furhat.ask(timeout = 100){"So your clients name is: $vollername?"
+        furhat.ask("So your clients name is: $vollername?")
 
         onResponse<Yes> {
         furhat.say("Perfect, I will figure out where you have to pick up your client")
         }
         onResponse<No> {
         furhat.say("Then please enter the name of your client again")
-        }}}
+        }}
 
     onResponse<No> {
         furhat.say("Okay then please Sign up at our reception. It was a pleasure trying to help you!")
