@@ -12,14 +12,13 @@ val Taxidriverdialogue01 : State = state() {
 
     onEntry {
         furhat.ask("Is that name correct?")
+
         onResponse<Yes> {
             furhat.say("Perfect, I will figure out where you have to pick up your client")
         }
         onResponse<No> {
             furhat.say("Then please enter the name of your client again")
+        goto(Taxidriverdialogue)
         }
-
-
     }
     }
-}
