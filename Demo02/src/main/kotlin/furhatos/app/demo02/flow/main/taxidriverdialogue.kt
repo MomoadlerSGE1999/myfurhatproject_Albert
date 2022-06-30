@@ -1,10 +1,12 @@
 package furhatos.app.demo02.flow.main
 
+import bsh.This
 import furhatos.flow.kotlin.*
 import furhatos.gestures.Gestures
 import furhatos.nlu.common.No
 import furhatos.nlu.common.Yes
 import furhatos.records.User
+import kotlinx.coroutines.withTimeout
 import kotlin.concurrent.timer
 
 val Taxidriverdialogue : State = state() {
@@ -14,15 +16,19 @@ val Taxidriverdialogue : State = state() {
         )}
     onResponse<Yes> {
 
-        furhat.say(
-            "Please type in the sur name of your client"
-        )
-        //furhat.attend(locationb) // Timer einfügen, da er nur für eine gewisse Zeit zur Tastatur schauen soll
+        furhat.say("Please type in the sur name of your client")
+        furhat.attend(locationb) // Timer einfügen, da er nur für eine gewisse Zeit zur Tastatur schauen soll
+
+        delay(3000)
+
+        furhat.attend(it.userId)
+
         val userInputclientvor = readLine()
-        furhat.say(
-            "Please also type in your clients last name"
-        )
+
+        furhat.say("Please also type in your clients last name")
+
         val userInputclientnach = readLine()
+
         fun getName(vorname: String? = userInputclientvor, name: String? = userInputclientnach): String =
             "$userInputclientvor $userInputclientnach"
 

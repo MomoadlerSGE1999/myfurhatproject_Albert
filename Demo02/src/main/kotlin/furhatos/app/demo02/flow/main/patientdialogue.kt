@@ -17,7 +17,6 @@ val Patientdialogue : State = state(Parent) {
             furhat.gesture(random(Gestures.BigSmile, Gestures.Roll, Gestures.Thoughtful))
         }
 
-
             onResponse<No> {
                 furhat.say("Okay then please ask the person at the reception where you have to go")
                 furhat.attend(locationa)

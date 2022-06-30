@@ -8,9 +8,10 @@ import furhatos.nlu.common.Yes
 import java.sql.Timestamp
 
 val Greeting : State = state() {
-   dialogLogger.startSession(name = "Session") // Wie kann ich hier einen immer neuen Namen erzeugen mit der Variable Zeit? Also Bspw. name = Furhatlogs, timestamp
+
     onEntry {
-        furhat.ask("Hello I am Furhat the new Service Robot are you a Taxi Driver ${furhat.voice.pause("100ms")} or a patient in this dialisis centre?")
+        furhat.ask("Hello I am Furhat the new Service Robot are you a Taxi " +
+                "Driver ${furhat.voice.pause("70ms")} or a patient in this dialisis centre?")
     }
 
     onResponse<Yes> {

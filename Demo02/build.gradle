@@ -46,7 +46,9 @@ repositories {
 dependencies {
     compile 'com.furhatrobotics.furhatos:furhat-commons:2.3.0'
     compile 'com.furhatrobotics.assets:StandardLibraryCollection:1.0.2'
-    compile 'com.furhatrobotics.assets:StandardLibraryCollection:+'
+    //compile 'com.furhatrobotics.assets:StandardLibraryCollection:+'
+    //compile group 'org.apache.poi', name:'poi', version '5.2.2'
+    compile 'org.apache.poi:poi:5.2.2'
 }
 
 jar {

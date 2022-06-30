@@ -1,8 +1,9 @@
 package furhatos.app.demo02.flow
 
-import furhatos.app.demo02.flow.main.Idle
+
 import furhatos.app.demo02.setting.distanceToEngage
 import furhatos.app.demo02.setting.maxNumberOfUsers
+import furhatos.app.demo02vergleich.flow.main.Idle
 import furhatos.flow.kotlin.*
 import furhatos.flow.kotlin.voice.Voice
 

@@ -11,7 +11,8 @@ import furhatos.nlu.common.Yes
 val Taxidriverdialogue01 : State = state() {
 
     onEntry {
-        furhat.ask("Is that name correct?")
+        furhat.ask("Is that name correct?"
+        +Gestures.BigSmile)
     }
         onResponse<Yes> {
             furhat.say("Perfect ${furhat.voice.pause("100ms")}, I will figure out where you have to pick up your client")

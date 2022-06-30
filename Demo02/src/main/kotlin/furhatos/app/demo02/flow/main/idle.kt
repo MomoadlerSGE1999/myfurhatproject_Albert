@@ -1,5 +1,6 @@
-package furhatos.app.demo02.flow.main
+package furhatos.app.demo02vergleich.flow.main
 
+import furhatos.app.demo02.flow.main.Greeting
 import furhatos.flow.kotlin.*
 
 val Idle: State = state {
