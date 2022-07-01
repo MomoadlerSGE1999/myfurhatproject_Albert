@@ -1,4 +1,4 @@
-import org.apache.poi.openxml4j.opc.OPCPackage
+/*import org.apache.poi.openxml4j.opc.OPCPackage
 import org.apache.poi.openxml4j.opc.PackageAccess
 import org.apache.poi.util.XMLHelper
 import org.apache.poi.xssf.eventusermodel.XSSFReader
@@ -48,3 +48,4 @@ fun fetchSheetParser(sst: SharedStrings?): XMLReader {
     parser.contentHandler = handler
     return parser
 }
+*/
