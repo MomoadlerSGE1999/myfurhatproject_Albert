@@ -48,7 +48,13 @@ dependencies {
     compile 'com.furhatrobotics.assets:StandardLibraryCollection:1.0.2'
     //compile 'com.furhatrobotics.assets:StandardLibraryCollection:+'
     //compile group 'org.apache.poi', name:'poi', version '5.2.2'
-    compile 'org.apache.poi:poi:5.2.2'
+    //compile 'org.apache.poi:poi:5.2.2'
+    // https://mvnrepository.com/artifact/com.1stleg/jnativehook
+    implementation("com.1stleg:jnativehook:2.1.0")
+   implementation("org.apache.poi:poi:5.2.2")
+    implementation("org.apache.poi:poi-ooxml:5.2.2")
+
+
 }
 
 jar {

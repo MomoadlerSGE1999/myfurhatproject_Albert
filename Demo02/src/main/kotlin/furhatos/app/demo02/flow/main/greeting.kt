@@ -10,18 +10,18 @@ import java.sql.Timestamp
 val Greeting : State = state() {
 
     onEntry {
-        furhat.ask("Hello I am Furhat the new Service Robot are you a Taxi " +
-                "Driver ${furhat.voice.pause("70ms")} or a patient in this dialisis centre?")
+        furhat.ask("Hallo, ich bin furhat, der neue Serviceroboter hier im Dialysezentrum ${furhat.voice.pause("70ms")}, bist du Taxifahrer beziehungsweise Patient in diesem Dialysezentrum?"
+        )
     }
 
     onResponse<Yes> {
-        furhat.say{+"Okay, then i can help you to manage your orientation here."
-                   +Gestures.Smile}
+        furhat.say{+"Okay, dann kann ich dir bei der Orientierung in diesem Dialysezentrum helfen."
+            +Gestures.Smile}
         goto(Dialogue01)
     }
 
     onResponse<No> {
-        furhat.say("Okay, see you soon hopefully. Please register at the reception")
+        furhat.say("Okay, hoffentlich sehen wir uns mal wieder. Bitte regestrieren Sie sich an der Rezeption")
         furhat.attend(locationa)
     }
 

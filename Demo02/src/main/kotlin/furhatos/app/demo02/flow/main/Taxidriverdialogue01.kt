@@ -11,15 +11,15 @@ import furhatos.nlu.common.Yes
 val Taxidriverdialogue01 : State = state() {
 
     onEntry {
-        furhat.ask("Is that name correct?"
-        +Gestures.BigSmile)
+        furhat.ask("Ist dieser Name korrekt?"
+                +Gestures.BigSmile)
     }
-        onResponse<Yes> {
-            furhat.say("Perfect ${furhat.voice.pause("100ms")}, I will figure out where you have to pick up your client")
-        }
-        onResponse<No> {
-            furhat.say("Then please enter the name of your client again")
+    onResponse<Yes> {
+        furhat.say("Perfekt, ${furhat.voice.pause("100ms")}, Ich werde nun herausfinden, wo Sie Ihren Kunden abholen müssen")
+    }
+    onResponse<No> {
+        furhat.say("Dann geben Sei bitte nochmal den Namen Ihres Patienten an")
         goto(Taxidriverdialogue)
-        }
-
     }
+
+}

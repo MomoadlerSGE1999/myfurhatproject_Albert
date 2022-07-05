@@ -16,12 +16,11 @@ val locationa = Location(1.0,0.0,2.0)
 val locationb = Location(4,0,1)
 val Dialogue02 : State = state() {
     onEntry {
-        furhat.ask("Are  you a Patient${furhat.voice.pause("100ms")} or a taxi driver?")
+        furhat.ask("Sind sie Patient ${furhat.voice.pause("100ms")} oder Taxifahrer?")
     }
 
     onResponse<Patient>{
-      goto(Patientdialogue)
-
+        goto(Patientdialogue)
     }
     onResponse<Taxidriver> {
         goto(Taxidriverdialogue)

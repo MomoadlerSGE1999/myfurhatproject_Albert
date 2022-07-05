@@ -7,31 +7,34 @@ import furhatos.flow.kotlin.*
 import furhatos.gestures.Gestures
 import furhatos.nlu.common.AskName
 import furhatos.nlu.common.PersonName
-
+import org.apache.poi.sl.usermodel.Sheet
+import suchePatient
 
 
 val Dialogue01 : State = state() {
     onEntry {
         var Furhatname: String = random("Furhat", "Felix Felicis", "Doctor Robot")
 
-        furhat.askFor<AskName>("My name is $Furhatname and yours?")
+        furhat.askFor<AskName>("Mein Name ist $Furhatname und deiner?")
     }
     onResponse<PersonName> {
 
         furhat.say {
             furhat.attend(user)
-            +"${it.text},${furhat.voice.pause("700ms")} what a beautiful name, but unfortunately I dont know how to spell it"
+            +"${it.text},${furhat.voice.pause("700ms")} ein schöner Name, aber leider weiß ich nicht wie ich diesen Namen buchstabieren"
             +Gestures.ExpressSad(2.0,duration = 1.0)
-            +"Please type in your sur name"
+            +"Bitte geben Sie Ihren Vornamen ein"
         }
         val userInputvor = readLine()
-        furhat.say("Please also type in your last name")
+        furhat.say("Bitte geben Sie auch ihren Nachnamen ein")
         val userInputnach = readLine()
         fun getName(vorname: String? = userInputvor, name: String? = userInputnach): String =
             "$userInputvor $userInputnach"
 
         val vollername: String = getName()
-        furhat.say("So from now on I will call you $vollername")
+        furhat.say("Alles klar,von jetzt an nenne ich dich $vollername")
+        //furhat.say{suchePatient()}
+        // val Patient = suchePatient(sheet = , 10, "$vollername") Ich brauche eine Funktion, die vorher schon regelt, dass suchepatient sich auf die excelread bezieht
 
         println(vollername)
 

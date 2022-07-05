@@ -12,11 +12,12 @@ import kotlin.concurrent.timer
 val Taxidriverdialogue : State = state() {
     onEntry {
         furhat.ask (
-            "Are you here to pick up a client?"
-        )}
+            "Sind Sie hier um einen Kunden abzuholen?"
+        )
+    }
     onResponse<Yes> {
 
-        furhat.say("Please type in the sur name of your client")
+        furhat.say("Bitte geben Sie den Vornamen des Kunden ein")
         furhat.attend(locationb) // Timer einfügen, da er nur für eine gewisse Zeit zur Tastatur schauen soll
 
         delay(3000)
@@ -25,7 +26,7 @@ val Taxidriverdialogue : State = state() {
 
         val userInputclientvor = readLine()
 
-        furhat.say("Please also type in your clients last name")
+        furhat.say("Bitte geben Sie den Nachnamen des Kunden ein")
 
         val userInputclientnach = readLine()
 
@@ -33,18 +34,18 @@ val Taxidriverdialogue : State = state() {
             "$userInputclientvor $userInputclientnach"
 
         val vollername: String = getName()
-        println("Your clients name is $vollername")
+        println("Der Name Ihres Kunden ist $vollername")
 
-        furhat.say("So your clients name is: $vollername?")
+        furhat.say("Also ist der Name Ihres Kunden: $vollername?")
         goto(Taxidriverdialogue01)
     }
-        onResponse<No> {
-            furhat.say("Okay then please Sign up at our reception. It was a pleasure trying to help you!")
-            furhat.gesture(Gestures.BigSmile(1.0, 2.0))
-        }
+    onResponse<No> {
+        furhat.say("Okay, melden sie sich bitte an unserer Rezeption an. Es war mir eine Ehre mit Ihnen zu reden.")
+        furhat.gesture(Gestures.BigSmile(1.0, 2.0))
+    }
 
 
-   }
+}
 
 
 

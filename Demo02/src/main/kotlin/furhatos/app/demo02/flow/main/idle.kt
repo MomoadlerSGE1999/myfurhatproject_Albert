@@ -11,8 +11,8 @@ val Idle: State = state {
                 furhat.attend(users.random)
                 goto(Greeting)
             }
-            users.count == 0 && furhat.isVirtual() -> furhat.say("I can't see anyone. Add a virtual user please. ")
-            users.count == 0 && !furhat.isVirtual() -> furhat.say("I can't see anyone. Step closer please. ")
+            users.count == 0 && furhat.isVirtual() -> furhat.say("Ich kann niemanden sehen, füge bitte einen virtuellen Benutzer hinzu")
+            users.count == 0 && !furhat.isVirtual() -> furhat.say("Ich kann niemanden sehen, komm bitte näher ")
         }
     }
 
