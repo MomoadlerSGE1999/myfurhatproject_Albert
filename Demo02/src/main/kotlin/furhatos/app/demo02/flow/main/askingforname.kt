@@ -7,8 +7,9 @@ import furhatos.flow.kotlin.*
 import furhatos.gestures.Gestures
 import furhatos.nlu.common.AskName
 import furhatos.nlu.common.PersonName
-import org.apache.poi.sl.usermodel.Sheet
+import org.apache.poi.ss.usermodel.Sheet
 import suchePatient
+import org.apache.poi.sl.usermodel.Sheet as Sheet1
 
 
 val Dialogue01 : State = state() {
@@ -34,7 +35,7 @@ val Dialogue01 : State = state() {
         val vollername: String = getName()
         furhat.say("Alles klar,von jetzt an nenne ich dich $vollername")
         //furhat.say{suchePatient()}
-        // val Patient = suchePatient(sheet = , 10, "$vollername") Ich brauche eine Funktion, die vorher schon regelt, dass suchepatient sich auf die excelread bezieht
+        //val Patient = suchePatient(Sheet, col = 10, searchName = vollername)
 
         println(vollername)
 

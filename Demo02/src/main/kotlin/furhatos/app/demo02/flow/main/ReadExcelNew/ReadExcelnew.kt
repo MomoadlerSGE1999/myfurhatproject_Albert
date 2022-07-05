@@ -81,7 +81,7 @@ fun suchePatient(sheet: Sheet, col: Int, searchName: String): Int {
     //For Schleife, um die Inhalte der Zellen mit Zeilen zu taggen
     for (rowIndex in 0 until sheet.lastRowNum + 1) {
         val rowContent: Row? = sheet.getRow(rowIndex)
-//Wenn der Zeileninhalt nicht null ist, dann formatiere den Inhalt der Reihe zu einer Zelle und tagge sie mit einem Tag bzw. col
+//Wenn der Zeileninhalt nicht null ist, dann formatiere den Inhalt der Zelle in der Spalte mit Index 10, die sich auf den Tag bezieht zu einer Zelle und tagge sie mit einem Tag bzw. col
         if (rowContent != null) {
             val cellDay: Cell? = rowContent.getCell(col)
             //Wenn der Inhalt dieser Zelle nicht null ist, was er auch nicht sein kann, da das vorherige if diesen Fall schon abdeckt, dann generiere aus der Zelle eine Variable die den Inhalt zu einem String transformiert
