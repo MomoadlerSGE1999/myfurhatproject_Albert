@@ -4,7 +4,7 @@ class Taxidriver : Intent() {
     var name: String = ""
     var vorname: String = ""
     override fun getExamples(lang: furhatos.util.Language): List<String> {
-        return listOf("Taxi driver", "Taxi", "Driver","talk to father")
+        return listOf("Taxi driver", "Taxi", "Driver")
     }
     fun getFullName(): String =
         "$vorname $name"

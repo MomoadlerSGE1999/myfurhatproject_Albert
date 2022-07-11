@@ -8,7 +8,6 @@ import furhatos.nlu.common.Yes
 import furhatos.records.User
 import java.sql.Timestamp
 
-//variable user muss gesetzt werden
 var user: User? = null
 
 val Greeting : State = state() {
@@ -34,11 +33,10 @@ val Greeting : State = state() {
         user!!.put("fullname", "${user!!.get("vorname")} ${user!!.get("name")}")
 
 // Mit dem Ausdruck ${user!!.get("fullname")} wird der user und das field fullname angesprochen
-        println("Der Name ist ${user!!.get("fullname")}")
+        println("Der Name Ihres Kunden ist ${user!!.get("fullname")}")
 
         //Hier wird der Name des Kunden nochmal wörtlich gesagt
-        furhat.say("der Name ist also: ${user!!.get("fullname")}")
-        goto(Dialogue02) //Muss wieder geändert werden
+        furhat.ask("Also ist Ihr Name: ${user!!.get("fullname")}?")
 
         onResponse<Yes> {
             goto(Dialogue02)

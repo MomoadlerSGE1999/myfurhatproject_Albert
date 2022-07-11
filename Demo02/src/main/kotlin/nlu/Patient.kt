@@ -4,7 +4,7 @@ class Patient : Intent() {
     var name: String = ""
     var vorname: String = ""
     override fun getExamples(lang: furhatos.util.Language): List<String> {
-        return listOf("Patient", "Kunde", "Inpatient","Pazient","Patsient", "Patzient","Patsy and")
+        return listOf("Patient", "Client", "Inpatient")
     }
 
     fun getFullName(): String =
