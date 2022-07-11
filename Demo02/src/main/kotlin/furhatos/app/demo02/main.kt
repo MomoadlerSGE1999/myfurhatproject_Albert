@@ -9,7 +9,7 @@ import furhatos.skills.Skill
 
 class Demo02Skill : Skill() {
     override fun start() {
-        Flow().run(Greeting)
+        Flow().run(Idle)
     }
 }
 

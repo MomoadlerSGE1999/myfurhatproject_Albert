@@ -8,17 +8,17 @@ import furhatos.nlu.common.Yes
 
 val Patientdialogue : State = state() {
     onEntry {
-        furhat.ask("Gut,${user!!.get("fullname")} ${furhat.voice.pause("700ms")} dann kann ich dir zeigen wo du heute hin musst. Are you here for a Dialysis treatment")
+        furhat.ask("Gut,${user!!.get("fullname")} ${furhat.voice.pause("700ms")} dann kann ich dir zeigen wo du heute hin musst. Sind Sie hier für eine Dialysebehndlung")
         furhat.gesture(Gestures.Blink(1.0, 2.5))
     }
 
         onResponse<Yes> {
-            furhat.say("Okay, thank you. I will figure out where you have to go now")
+            furhat.say("Okay, danke dir, ich werde jetzt herausfinden an welchen Platz du musst.")
             furhat.gesture(random(Gestures.BigSmile, Gestures.Roll, Gestures.Thoughtful))
         }
 
             onResponse<No> {
-                furhat.say("Okay then please ask the person at the reception where you have to go")
+                furhat.say("Okay, dann fragen Sie bitte an der Rezeption wie Ihnen geholfen werden kann")
                 furhat.attend(locationa)
             }
         }
