@@ -15,7 +15,7 @@ val Init : State = state() {
         furhat.setInputLanguage(Language.GERMAN)
         /** Set our default interaction parameters */
         users.setSimpleEngagementPolicy(distanceToEngage, maxNumberOfUsers)
-        furhat.voice = Voice("Matthew")
+        furhat.voice = Voice("Hans")
         /** start the interaction */
         goto(Idle)
     }

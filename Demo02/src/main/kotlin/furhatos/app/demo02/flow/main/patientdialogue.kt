@@ -5,22 +5,21 @@ import furhatos.flow.kotlin.*
 import furhatos.gestures.Gestures
 import furhatos.nlu.common.No
 import furhatos.nlu.common.Yes
-import suchePatient
 
-val Patientdialogue : State = state(Parent) {
+val Patientdialogue : State = state() {
     onEntry {
-
-        furhat.ask("Alles klar,${furhat.voice.pause("700ms")} dann kann ich Ihnen sagen wo Sie heute hin müssen. Sind sie hier für eine Dialysebehandlung")
+        furhat.ask("Gut,${user!!.get("fullname")} ${furhat.voice.pause("700ms")} dann kann ich dir zeigen wo du heute hin musst. Are you here for a Dialysis treatment")
         furhat.gesture(Gestures.Blink(1.0, 2.5))
     }
 
-    onResponse<Yes> {
-        furhat.say("Okay, danke für die information. Ich werde jetzt herausfinden, wo Sie heute hin müssen")
-        furhat.gesture(Gestures.Thoughtful)
-    }
-
-    onResponse<No> {
-        furhat.say("Okay, dann fragen Sie bitte an der Rezeption wo Sie heute hin müssen")
-        furhat.attend(locationa)
+        onResponse<Yes> {
+            furhat.say("Okay, thank you. I will figure out where you have to go now")
+            furhat.gesture(random(Gestures.BigSmile, Gestures.Roll, Gestures.Thoughtful))
         }
-    }
+
+            onResponse<No> {
+                furhat.say("Okay then please ask the person at the reception where you have to go")
+                furhat.attend(locationa)
+            }
+        }
+
