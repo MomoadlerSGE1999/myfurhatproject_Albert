@@ -1,6 +1,7 @@
 package furhatos.app.demo02.flow.main
 
 import furhatos.app.demo02.flow.Parent
+import furhatos.app.demo02vergleich.flow.main.Idle
 import furhatos.flow.kotlin.*
 import furhatos.gestures.Gestures
 import furhatos.nlu.common.No
@@ -13,7 +14,7 @@ var user: User? = null
 val Greeting : State = state() {
 
     onEntry {
-        furhat.ask("Hallo, ich bin furhat, der neue Serviceroboter hier im Dialysezentrum ${furhat.voice.pause("70ms")}, bist du Taxifahrer beziehungsweise Patient in diesem Dialysezentrum?"
+        furhat.ask("Hallo, ich bin furhat, der neue Serviceroboter hier im Dialysezentrum ${furhat.voice.pause("70ms")}, sind Sie Taxifahrer beziehungsweise Patient in diesem Dialysezentrum?"
         )
     }
 
@@ -38,8 +39,12 @@ val Greeting : State = state() {
     }
 
     onResponse<No> {
-        furhat.say("Okay, hoffentlich sehen wir uns mal wieder. Bitte registrieren Sie sich an der Rezeption")
+        furhat.say("Okay, hoffentlich sehen wir uns mal wieder. Bitte registrieren Sie sich an der Rezeption, dazu gehen sie bitte direkt links")
+       //Der Kopf soll richtung Rezeption schauen, locationa soll die Rezeption sein
         furhat.attend(locationa)
+        //10 Sekunden warten, dann geht Furhat zum State IDle um mit dem nächsten zu sprechen
+        delay(10000)
+        goto(Idle)
     }
 
 }

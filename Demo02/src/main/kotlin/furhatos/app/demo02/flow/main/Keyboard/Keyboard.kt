@@ -18,8 +18,10 @@ class GlobalKeyListenerExample : NativeKeyListener {
     override fun nativeKeyReleased(e: NativeKeyEvent) {
         //mit for schleife, append, add, Stringbuilder?
         //for (i in 1..35) {
+        //Forschleife für stringinput der liefert dann von der forschleife aus immer einen char an eine variable die nicht in der schleife ist
             System.out.println("Key Released: " + NativeKeyEvent.getKeyText(e.getKeyCode()))
             var stringInput = NativeKeyEvent.getKeyText(e.getKeyCode())
+        var fullstring: String = stringInput
             System.out.println("hallo" + stringInput)
 
     }

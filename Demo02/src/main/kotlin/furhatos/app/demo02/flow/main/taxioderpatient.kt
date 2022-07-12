@@ -13,7 +13,7 @@ import furhatos.records.Location
 import furhatos.records.User
 import org.apache.commons.codec.language.bm.Lang
 
-val locationa = Location(1.0,0.0,2.0)
+val locationa = Location(5.0,0.0,1.0)
 val locationb = Location(4,0,1)
 
 val Dialogue02 : State = state() {
