@@ -1,6 +1,8 @@
 package furhatos.app.demo02.flow.main
 
 import Patient
+import Platz
+import ReadExcel
 import furhat.libraries.standard.utils.attendClosestUser
 import furhatos.flow.kotlin.*
 import furhatos.gestures.Gestures
@@ -15,7 +17,9 @@ val Taxidriverdialogue01 : State = state(){
     }
     onResponse<Yes> {
 
-        furhat.say("Perfekt, ${furhat.voice.pause("100ms")}, Ich werde nun herausfinden, wo Sie Ihren Kunden, ${user!!.get("fullname")} abholen müssen")
+        furhat.say("Perfekt, ${furhat.voice.pause("100ms")}, Ich werde nun herausfinden, wo Sie Ihren Kunden, Herrn ${user!!.get("name")} abholen müssen")
+        call(ReadExcel)
+
     }
     onResponse<No> {
         furhat.say("Dann geben Sei bitte nochmal den Namen Ihres Patienten an")

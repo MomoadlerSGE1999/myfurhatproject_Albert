@@ -1,1 +1,1 @@
-data class Platz(var name: String, var zeile: Int, var raum: String?)
+data class Platz(var raum: String?, var platz: String, var zeile: Int)

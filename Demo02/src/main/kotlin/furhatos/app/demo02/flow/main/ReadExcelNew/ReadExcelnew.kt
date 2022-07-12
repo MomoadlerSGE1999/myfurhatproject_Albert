@@ -1,14 +1,18 @@
-import cc.mallet.fst.semi_supervised.pr.PRAuxiliaryModel
+import furhatos.app.demo02.flow.main.suchePatient
+import furhatos.app.demo02.flow.main.user
+import furhatos.flow.kotlin.State
+import furhatos.flow.kotlin.furhat
+import furhatos.flow.kotlin.state
 import org.apache.poi.ss.usermodel.Cell
 import org.apache.poi.ss.usermodel.Row
 import org.apache.poi.ss.usermodel.Sheet
 import org.apache.poi.ss.usermodel.WorkbookFactory
 import java.io.FileInputStream
 
-fun main(args: Array<String>) {
+val ReadExcel : State = state() {
 
 
-    val filename: String = "C:/data/Schicht1.xlsx"
+    val filename: String = "N:\\Student\\HenselFurhat\\Belegungsplan_Nephro.xls"
     //Hier wird ein Woorkbook erstellt und über FileInputStream mit Variable "Filename" gefunden
     val wb = WorkbookFactory.create(FileInputStream(filename))
     //Hier wird die Arbeitsmappe in der Excel ausgewählt, der Index 0 sthet dabei für die erste Arbeitsmappe
@@ -49,23 +53,24 @@ fun main(args: Array<String>) {
                             val cellRaum: Cell? = rowContent.getCell(1)
                             if(cellRaum!=null) {
                                 raum = cellRaum.toString()
-                                platzList.add(Platz(cellPlatzString, rowIndex, raum))
+                                platzList.add(Platz(raum, cellPlatzString, rowIndex))
                                 raum=null
                                 break
                             }
                         }
                     } else {
                         //Ist die Zelle Raum nicht null, so kann der Inhalt der Zelle direkt in die Liste Platz als Variable Raum übernommen werden
-                        platzList.add(Platz(cellPlatzString, rowIndex, raum))
+                        platzList.add(Platz(raum, cellPlatzString, rowIndex))
                     }
                 }
             }
         }
     }
-
-    var name = "Sack"
+    onEntry {
+    var name: String = user!!.get("fullname").toString()
     //Die Funktion hat drei Variablen: sheet=Arbeitsmappe, col= Tag bzw Spalte des Sheets, name=Patientenname
-    var ergebnis = suchePatient(sheet, 10, name)
+    var ergebnis = suchePatient(sheet, 3, name)
+
 //wenn das ergebnis -1 ist, wurde der Name nicht gefunden
         for(platz in platzList){
         if (ergebnis == -1) {
@@ -77,31 +82,11 @@ fun main(args: Array<String>) {
         if(platz.zeile == ergebnis) {
             println("Patient: $name")
             println(platz) // Ich würde gerne hier nur einzelne Teile der Variable platz ausgeben lassen, warum ist platz klein geschrieben,
-                           // wenn sich eigentlich die Liste mutablelistof<Platz> groß schreibt?
+             furhat.say ("$platz")              // wenn sich eigentlich die Liste mutablelistof<Platz> groß schreibt?
         }
+    }
     }
 }
 
 
-//Spalte col = tag
-fun suchePatient(sheet: Sheet, col: Int, searchName: String): Int {
-   //die Variable PatientName ist ein nullable String, hier beträgt der noch nicht überschriebene Wert null
-    var patientName: String? = null
-    //For Schleife, um die Zeilen auszugeben
-    for (rowIndex in 0 until sheet.lastRowNum + 1) {
-        val rowContent: Row? = sheet.getRow(rowIndex)
-//Wenn der Zeileninhalt nicht null ist, dann erzeuge einen Value in Form einer Zelle mit dem Inhalt der Zelle in Zeile X und Spalte (col)
-        if (rowContent != null) {
-            val cellDay: Cell? = rowContent.getCell(col)
-            //Wenn der Inhalt des Values CellDay nicht null ist, was er auch nicht sein kann, da das vorherige if diesen Fall schon abdeckt,
-            // dann überschreibe die Variable patientName mit dem Inhalt dem Values CellDay
-            if(cellDay!=null) {
-                patientName = cellDay.toString()
-                if(searchName == patientName){
-                    return rowIndex
-                }
-            }
-        }
-    }
-    return -1
-}
+
