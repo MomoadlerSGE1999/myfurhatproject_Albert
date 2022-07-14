@@ -1,6 +1,8 @@
 package furhatos.app.demo02
 
+
 import furhatos.app.demo02.flow.Init
+import furhatos.app.demo02vergleich.flow.main.Idle
 import furhatos.flow.kotlin.Flow
 import furhatos.skills.Skill
 

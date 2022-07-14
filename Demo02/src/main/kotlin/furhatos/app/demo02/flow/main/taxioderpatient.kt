@@ -19,7 +19,7 @@ val locationb = Location(4,0,1)
 val Dialogue02 : State = state() {
 
     onEntry {
-        furhat.ask("Hallo ${user!!.get("fullname")} bist du Patient ${furhat.voice.pause("100ms")} oder Taxifahrer?")
+        furhat.ask("Herr ${user!!.get("name")} sind Sie Patient ${furhat.voice.pause("100ms")} oder Taxifahrer?")
     }
 
     onResponse<Patient>{

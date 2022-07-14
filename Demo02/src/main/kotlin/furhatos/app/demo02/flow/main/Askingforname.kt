@@ -1,4 +1,4 @@
-package furhatos.app.demo02.flow.main
+ /*package furhatos.app.demo02.flow.main
 
 import Platz
 import bsh.This
@@ -41,5 +41,5 @@ val Dialogue01 : State = state() {
 
 }
 
-
+*/
 

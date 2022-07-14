@@ -15,7 +15,7 @@ fun stellefrage(user: User, furhat: Furhat, question: String, field: String) {
         // furhat.attend(locationb) // Timer einfügen, da er nur für eine gewisse Zeit zur Tastatur schauen soll
 
         //delay(3000)
-//er schaut den user an für den er den namen hinterlegt hat
+//er schaut den user an, der geantwortet hat und für den der name durch diese Funktion hinterlegt werden wird
         furhat.attend(user.id)
 
 
@@ -70,3 +70,4 @@ fun suchePatient(sheet: Sheet, col: Int, searchName: String): Int {
     }
     return -1
 }
+

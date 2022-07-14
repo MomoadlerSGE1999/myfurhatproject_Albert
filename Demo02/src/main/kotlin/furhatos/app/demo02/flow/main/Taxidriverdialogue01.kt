@@ -13,12 +13,13 @@ import furhatos.records.User
 
 val Taxidriverdialogue01 : State = state(){
     onEntry {
-        furhat.ask("Ich notiere folgenden Namen, ${user!!.get("fullname")}, stimmt das ?" )
+        furhat.ask("Ich notiere folgenden Namen  ${user!!.get("vorname")} ${user!!.get("name")}, stimmt das ?" )
     }
     onResponse<Yes> {
 
         furhat.say("Perfekt, ${furhat.voice.pause("100ms")}, Ich werde nun herausfinden, wo Sie Ihren Kunden, Herrn ${user!!.get("name")} abholen müssen")
         call(ReadExcel)
+        furhat.say("Es war mir eine Freude Ihnen zu helfen")
 
     }
     onResponse<No> {
