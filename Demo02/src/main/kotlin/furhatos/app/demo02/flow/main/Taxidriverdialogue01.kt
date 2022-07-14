@@ -13,7 +13,7 @@ import furhatos.records.User
 
 val Taxidriverdialogue01 : State = state(){
     onEntry {
-        furhat.ask("Ich notiere folgenden Namen  ${user!!.get("vorname")} ${user!!.get("name")}, stimmt das ?" )
+        furhat.ask("Ich notiere folgenden Namen: ${furhat.voice.pause("100ms")} ${user!!.get("vorname")} ${user!!.get("name")}, stimmt das ?" )
     }
     onResponse<Yes> {
 
