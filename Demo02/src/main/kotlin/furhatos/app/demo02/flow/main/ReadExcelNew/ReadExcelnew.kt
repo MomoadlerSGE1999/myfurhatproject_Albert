@@ -92,8 +92,8 @@ val ReadExcel : State = state() {
                         raumfurhat == raumfurhat
                     }
                     */
-                    println("$raumfurhat $platzfurhat") // Ich würde gerne hier nur einzelne Teile der Variable platz ausgeben lassen, warum ist platz klein geschrieben,
-                    furhat.say(" Ich würde Sie bitten in $raumfurhat an den $platzfurhat zu gehen")              // wenn sich eigentlich die Liste mutablelistof<Platz> groß schreibt?
+                    println("Ich würde Sie bitten in $raumfurhat an den $platzfurhat zu gehen") // Ich würde gerne hier nur einzelne Teile der Variable platz ausgeben lassen, warum ist platz klein geschrieben,
+                    furhat.say(" Ich würde Sie bitten in $raumfurhat an den $platzfurhat zu gehen") // wenn sich eigentlich die Liste mutablelistof<Platz> groß schreibt?
                 }
             }
         }
