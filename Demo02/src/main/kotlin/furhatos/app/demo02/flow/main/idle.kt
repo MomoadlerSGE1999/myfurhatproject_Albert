@@ -1,6 +1,8 @@
 package furhatos.app.demo02vergleich.flow.main
 
+import furhat.libraries.standard.utils.attendClosestUser
 import furhatos.app.demo02.flow.main.Greeting
+import furhatos.app.demo02.flow.main.user
 import furhatos.flow.kotlin.*
 
 val Idle: State = state {
@@ -17,7 +19,7 @@ val Idle: State = state {
     }
 
     onEntry {
-        furhat.attendNobody()
+        furhat.attendClosestUser()
     }
 
     onUserEnter {

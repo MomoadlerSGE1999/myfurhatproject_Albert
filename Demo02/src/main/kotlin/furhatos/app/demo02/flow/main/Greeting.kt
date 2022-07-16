@@ -14,13 +14,13 @@ val Greeting : State = state() {
 
     onEntry {
         furhat.attend(users.current)
-        furhat.ask("Hallo, ich bin furhat, der neue Serviceroboter hier in unserem Dialysezentrum ${furhat.voice.pause("70ms")}, sind Sie Taxifahrer beziehungsweise Dialysepatient in diesem Dialysezentrum?"
+        furhat.ask("Hallo, ich bin Hannah, der neue Serviceroboter hier in unserem Dialysezentrum ${furhat.voice.pause("70ms")}, sind Sie Taxifahrer beziehungsweise Dialysepatient in diesem Dialysezentrum?"
         )
     }
 
     onResponse<Yes> {
         furhat.say {
-            +"Okay, dann kann ich Ihnen bei der Orientierung in diesem Dialysezentrum helfen."
+            +"Okay, dann kann ich Ihenen wohlmöglich weiterhelfen."
             furhat.gesture(Gestures.BigSmile)
         }
         //Der Gesprächspartner wird nach der initialen setzung einer userID von Furhat, also nach der ersten Frage durch User definiert

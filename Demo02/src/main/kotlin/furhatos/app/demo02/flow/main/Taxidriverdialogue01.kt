@@ -4,6 +4,7 @@ import Patient
 import Platz
 import ReadExcel
 import furhat.libraries.standard.utils.attendClosestUser
+import furhatos.app.demo02vergleich.flow.main.Idle
 import furhatos.flow.kotlin.*
 import furhatos.gestures.Gestures
 import furhatos.nlu.MultiIntentCandidate
@@ -20,6 +21,9 @@ val Taxidriverdialogue01 : State = state(){
         furhat.say("Perfekt, ${furhat.voice.pause("100ms")}, Ich werde nun herausfinden, wo Sie Ihren Kunden, Herrn ${user!!.get("name")} abholen müssen")
         call(ReadExcel)
         furhat.say("Es war mir eine Freude Ihnen zu helfen")
+        furhat.gesture(Gestures.Nod())
+        delay(10000)
+        goto(Idle)
 
     }
     onResponse<No> {
