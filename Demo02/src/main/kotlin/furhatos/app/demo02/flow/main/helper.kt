@@ -1,5 +1,6 @@
 package furhatos.app.demo02.flow.main
 
+import GlobalKeyListenerExample
 import furhatos.flow.kotlin.FlowControlRunner
 import furhatos.flow.kotlin.Furhat
 import furhatos.flow.kotlin.users
@@ -7,21 +8,31 @@ import furhatos.records.User
 import org.apache.poi.ss.usermodel.Cell
 import org.apache.poi.ss.usermodel.Row
 import org.apache.poi.ss.usermodel.Sheet
+import org.jnativehook.GlobalScreen
+import org.jnativehook.NativeHookException
 
 
 fun stellefrage(user: User, furhat: Furhat, question: String, field: String) {
-//Er sagt eingegebene Frage als Value mit dem field question,
+//Furhat sagt die eingegebene Frage als Value mit dem field question,
         furhat.say(question)
         // furhat.attend(locationb) // Timer einfügen, da er nur für eine gewisse Zeit zur Tastatur schauen soll
 
         //delay(3000)
 //er schaut den user an, der geantwortet hat und für den der name durch diese Funktion hinterlegt werden wird
         furhat.attend(user.id)
+    var input: String = ""
+    try {
+        GlobalScreen.registerNativeHook()
+    } catch (ex: NativeHookException) {
+        System.err.println("There was a problem registering the native hook.")
+        System.err.println(ex.message)
+        System.exit(1)
+    }
+    GlobalScreen.addNativeKeyListener(GlobalKeyListenerExample(input))
 
-
-        val input = readLine()
+//Ist der Input nicht null
         if (input!=null) {
-
+//So wird field mit der variable input gefüllt
             user.put(field, input)
         }
         else {
