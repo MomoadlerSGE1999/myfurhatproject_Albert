@@ -27,6 +27,8 @@ class GlobalKeyListenerExample : NativeKeyListener {
             if (value.length == 1 && Character.isLetter(value.single())){
                 //System.out.println("Key Released: " + NativeKeyEvent.getKeyText(e.getKeyCode()))
                 //Operator muss aneinander stehen: text+=
+                //Der Variable Text wird immer ein weiterer Buchstabe hinzugefügt, solange bis der Keyboardlistener
+                // durch die erste Bedingung unterbrochen wird
                 text += NativeKeyEvent.getKeyText(e.getKeyCode())
 
             }
