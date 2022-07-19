@@ -11,19 +11,25 @@ class GlobalKeyListenerExample : NativeKeyListener {
     }
 
     override fun nativeKeyPressed(e: NativeKeyEvent) {
+        //Definition der Regeln wie der Keyboardlistener zu arbeiten hat
+        //Wird Enter gedrückt, wird der Keyboardlistener unregistered, also beendet
         if (e.keyCode == NativeKeyEvent.VC_ENTER) {
             try {
                 GlobalScreen.unregisterNativeHook()
             } catch (nativeHookException: NativeHookException) {
                 nativeHookException.printStackTrace()
             }
+            //Der bis zum Drücken von enter eingegebene text wird geprinted
         println(text)
         }
         else {
+            //Hier wird solange ein Char der Variable text hinzugefügt, bis das Abbrcuhkriterium (Enter) erfüllt ist
             println(e.keyCode)
             println(NativeKeyEvent.getKeyText(e.getKeyCode()))
             val value = NativeKeyEvent.getKeyText(e.getKeyCode())
             println(value.length)
+            //Zwei Bedingungen, einmal darf die länge nur 1 sein, so wird umgangen, dass Strings wie "Umschalt" o. Ä. dem
+            // Text hinzugefügt werden, also nur einzelne bcuhstaben (Chars)
             if (value.length == 1 && Character.isLetter(value.single())){
                 //System.out.println("Key Released: " + NativeKeyEvent.getKeyText(e.getKeyCode()))
                 //Operator muss aneinander stehen: text+=
@@ -61,4 +67,4 @@ class GlobalKeyListenerExample : NativeKeyListener {
             println(text2)
         }
     }
-    }
+}
