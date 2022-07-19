@@ -46,7 +46,7 @@ fun userwechsel (flow: FlowControlRunner, userid: String){
 //Dem User der auf keinen Fall den Wert Null hat, wird ein Feld gelabelt mit dem Namen Dialogue02, somit ist Status der einzelnen userID bekannt (Wurde ine Name schon vergeben?,
 // ist der State Dialogue02 schon durchlaufen worden? -->Status,
     user!!.put("Dialogue", "Dialogue02")
-    //Hier wird eine Userid gesetzt
+    //Hier wird eine neue Userid gesetzt
     user=flow.users.getUser(userid)
     // Wenn das field Dialogue den Wert Null hat, gehe zu Greeting und starte einen neuen Lauf, um auch den namen des neuen users zu haben
     if (user!!.get("Dialogue")==null) {
@@ -81,4 +81,6 @@ fun suchePatient(sheet: Sheet, col: Int, searchName: String): Int {
     }
     return -1
 }
+
+
 
