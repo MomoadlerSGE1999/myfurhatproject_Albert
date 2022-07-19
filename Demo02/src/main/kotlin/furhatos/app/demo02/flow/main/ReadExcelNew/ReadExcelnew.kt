@@ -72,7 +72,7 @@ val ReadExcel : State = state() {
             var name: String = user!!.get("fullname").toString()
             //Die Funktion hat drei Variablen: sheet=Arbeitsmappe, col= Tag bzw Spalte des Sheets, name=Patientenname
             var ergebnis = suchePatient(sheet, 3, name)
-
+//TODO time stamp für die Spalte in der gesucht wird
 //wenn das ergebnis -1 ist, wurde der Name nicht gefunden
             for (platz in platzList) {
                 if (ergebnis == -1) {
