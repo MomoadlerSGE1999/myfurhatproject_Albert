@@ -9,6 +9,7 @@ import org.apache.poi.ss.usermodel.Row
 import org.apache.poi.ss.usermodel.Sheet
 import org.apache.poi.ss.usermodel.WorkbookFactory
 import java.io.FileInputStream
+import java.time.DayOfWeek
 
 val ReadExcel : State = state() {
 
@@ -70,9 +71,11 @@ val ReadExcel : State = state() {
         }
         onEntry {
             var name: String = user!!.get("fullname").toString()
+            // TODO Mit Var Wochentag einen zeitstempel setzen, der basierend auf dem Wochentag die Col als Int setzt
+            //TODO var Wochentag = Col "Muss dann hier den aktuellen Wochentag ausgeben und entsprechend der Spaltenlogik einen Int setzen"
             //Die Funktion hat drei Variablen: sheet=Arbeitsmappe, col= Tag bzw Spalte des Sheets, name=Patientenname
             var ergebnis = suchePatient(sheet, 3, name)
-//TODO time stamp für die Spalte in der gesucht wird
+
 //wenn das ergebnis -1 ist, wurde der Name nicht gefunden
             for (platz in platzList) {
                 if (ergebnis == -1) {
