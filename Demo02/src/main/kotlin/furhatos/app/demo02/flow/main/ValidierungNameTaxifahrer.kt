@@ -1,5 +1,6 @@
 package furhatos.app.demo02.flow.main
 
+import Ja
 import furhatos.flow.kotlin.State
 import furhatos.flow.kotlin.furhat
 import furhatos.flow.kotlin.onResponse
@@ -21,7 +22,7 @@ val ValidierungNameTaxifahrer : State = state() {
         furhat.gesture(Gestures.BigSmile)
     }
 
-    onResponse<Yes> {
+    onResponse<Ja> {
         //Nachdem der aktuelle user geantwortet hat, ist der Ausdruck it mit seiner userid gesetzt
         //Die Frage ist, ist der User der geantwortet hat, immer noch derselbe wie der dessen Namen gesetzt wurde
         // Ist dies der Fall geht es weiter mit der Interaktion, ist dies nicht der Fall, geht es nochmal von

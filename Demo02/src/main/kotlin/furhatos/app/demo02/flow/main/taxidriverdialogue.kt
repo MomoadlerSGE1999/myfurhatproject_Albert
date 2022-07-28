@@ -1,6 +1,7 @@
 package furhatos.app.demo02.flow.main
 
 
+import Ja
 import furhatos.flow.kotlin.*
 import furhatos.gestures.Gestures
 import furhatos.nlu.common.No
@@ -14,7 +15,7 @@ val Taxidriverdialogue : State = state() {
             "Sind Sie hier um einen Kunden abzuholen?"
         )
     }
-    onResponse<Yes> {
+    onResponse<Ja> {
         if (user == null){
             //User wird gesetzt, wenn der vorherige user gleich null ist und ein anderer, bspw. der Patient geantortet hat
             user = users.getUser(it.userId)
