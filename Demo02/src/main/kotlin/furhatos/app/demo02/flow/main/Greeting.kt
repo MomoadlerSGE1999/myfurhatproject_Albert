@@ -16,15 +16,22 @@ val Greeting : State = state() {
 
     onEntry {
         furhat.attend(users.current)
-        furhat.ask("Hallo, ich bin Hannah, der neue Serviceroboter hier in unserem Dialysezentrum. Können Sie mir sagen, ob sie ein " +
-                "${furhat.voice.pause("200")} Taxifahrer oder ein ${furhat.voice.pause("200")} Dialysepatient in diesem Dialysezentrum sind?"
-        )
+        furhat.ask {
+            +"Hallo, ich bin Hannah, der neue Serviceroboter hier in unserem Dialysezentrum. Können Sie mir sagen, ob sie ein Taxifahrer "
+            +"oder ein Dialysepatient in unserem Dialysezentrum sind?"
+            +blocking {
+                furhat.gesture(Gestures.BrowRaise, async = false)
+            }
+        }
+
     }
 
     onResponse<Patient> {
         furhat.say {
-            +"Okay, dann kann ich Ihnen weiterhelfen."
-            furhat.gesture(Gestures.BigSmile)
+            +"${furhat.voice.emphasis("Patient")} also, dann kann ich Ihnen weiterhelfen."
+            +blocking {
+                furhat.gesture(Gestures.BigSmile, async = false)
+            }
         }
         //Der Gesprächspartner wird nach der initialen setzung einer userID von Furhat, also nach der ersten Frage durch User definiert
         //Der Parameter user kann nun genutzt werden um den Gesprächspartner in Codelogik einzubauen, zb von der Funktion stellefrage
@@ -44,8 +51,10 @@ val Greeting : State = state() {
     }
     onResponse<Taxidriver> {
         furhat.say {
-            +"Okay, dann kann ich Ihnen weiterhelfen."
-            furhat.gesture(Gestures.BigSmile)
+            +"Taxifahrer also, dann kann ich Ihnen weiterhelfen."
+            +blocking {
+                furhat.gesture(Gestures.BigSmile, async = false)
+            }
         }
         //Der Gesprächspartner wird nach der initialen setzung einer userID von Furhat, also nach der ersten Frage durch User definiert
         //Der Parameter user kann nun genutzt werden um den Gesprächspartner in Codelogik einzubauen, zb von der Funktion stellefrage
