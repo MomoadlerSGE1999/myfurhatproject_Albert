@@ -11,7 +11,7 @@ import furhatos.util.Language
 
 val Init : State = state() {
     init {
-        furhat.setVoice(Language.GERMAN, Gender.FEMALE)
+        furhat.setVoice(Language.GERMAN, Gender.FEMALE, false)
         furhat.setInputLanguage(Language.GERMAN)
         /** Set our default interaction parameters */
         users.setSimpleEngagementPolicy(distanceToEngage, maxNumberOfUsers)
