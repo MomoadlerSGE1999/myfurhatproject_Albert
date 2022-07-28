@@ -20,8 +20,8 @@ fun stellefrage(user: User, furhat: Furhat, question: String, field: String) {
         //delay(3000)
 //er schaut den user an, der geantwortet hat und für den der name durch diese Funktion hinterlegt werden wird
         furhat.attend(user.id)
-    var input: String = ""
-    try {
+    var input: String? = readLine()
+    /*try {
         GlobalScreen.registerNativeHook()
     } catch (ex: NativeHookException) {
         System.err.println("There was a problem registering the native hook.")
@@ -29,7 +29,7 @@ fun stellefrage(user: User, furhat: Furhat, question: String, field: String) {
         System.exit(1)
     }
     GlobalScreen.addNativeKeyListener(GlobalKeyListenerExample(input))
-
+*/
 //Ist der Input nicht null
         if (input!=null) {
 //So wird field mit der variable input gefüllt
