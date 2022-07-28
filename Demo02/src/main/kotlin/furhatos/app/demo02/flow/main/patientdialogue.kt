@@ -1,5 +1,6 @@
 package furhatos.app.demo02.flow.main
 
+import Ja
 import ReadExcel
 import furhat.libraries.standard.GesturesLib
 import furhatos.app.demo02vergleich.flow.main.Idle
@@ -18,7 +19,7 @@ val Patientdialogue : State = state() {
         furhat.gesture(Gestures.Smile)
     }
 
-        onResponse<Yes> {
+        onResponse<Ja> {
             call(ReadExcel)
             furhat.gesture(GesturesLib.PerformBigSmile1)
             furhat.say("Es war mir eine Freude Ihnen zu helfen")
