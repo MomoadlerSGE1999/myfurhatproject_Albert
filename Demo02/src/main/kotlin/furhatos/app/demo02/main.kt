@@ -15,3 +15,4 @@ class Demo02Skill : Skill() {
 fun main(args: Array<String>) {
     Skill.main(args)
 }
+
