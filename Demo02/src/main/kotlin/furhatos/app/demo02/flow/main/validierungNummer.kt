@@ -1,23 +1,25 @@
 package furhatos.app.demo02.flow.main
 
 import Ja
+import ReadExcel
+import ReadExcel2
 import furhatos.flow.kotlin.State
 import furhatos.flow.kotlin.furhat
 import furhatos.flow.kotlin.onResponse
 import furhatos.flow.kotlin.state
 import furhatos.gestures.Gestures
-import furhatos.nlu.common.No
-import furhatos.nlu.common.Yes
+import nlu.Nein
 
-val ValidierungNamePatient : State = state() {
+val ValidierungNummerPatient : State = state() {
 
     onEntry {
         // Mit dem Ausdruck ${user!!.get("fullname")} wird der user und das field fullname angesprochen
-        println("Ihr Name ist ${user!!.get("vorname")} ${user!!.get("name")}")
+        println("Ihre Patientennummer ist ${user!!.get("Patientennummer")}")
 
         //Hier wird der Name des Kunden nochmal wörtlich gesagt und somit eine fehleingabe vermieden
         furhat.ask(
-            "Also ist Ihr Name: ${user!!.get("vorname")} ${user!!.get("name")}, stimmt das?"
+            "Die Patientennummer ist ${user!!.get("Patientennummer")}, stimmt das?"
+            //,interruptable = true
         )
         furhat.gesture(Gestures.BigSmile)
     }
@@ -28,15 +30,22 @@ val ValidierungNamePatient : State = state() {
             // Ist dies der Fall geht es weiter mit der Interaktion, ist dies nicht der Fall, geht es nochmal von
             // vorne los und der neue User wird nach den namen und seinem Anliegen gefragt
             if (user!!.id == it.userId) {
+                ReadExcel2(user!!)
+                if (user!!.get("row") == -1) {
+                    furhat.say(
+                        "Sie stehen leider nicht auf dem Belegungsplan welcher mir vorliegt, bitte fragen Sie an der Rezeption nach. Ich wünsche Ihnen einen schönen Tag"
+                    )
+                    //TODO Goto idle o. Ä. zur erstellung von loop
+                }
                 goto(Patientdialogue)
             }
             else {
                 userwechsel(this, it.userId)
             }
-            goto(Patientdialogue)
+
         }
 
-        onResponse<No> {
-            goto(Greeting)
+        onResponse<Nein> {
+            goto(WennNameFalschPatient)
         }
     }

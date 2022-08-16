@@ -9,6 +9,7 @@ import furhatos.nlu.common.No
 import furhatos.nlu.common.Yes
 import furhatos.records.Location
 import furhatos.records.User
+import nlu.Nein
 
 var user: User? = null
 val locationa= Location (3.0, 0.0, 2.0)
@@ -16,19 +17,16 @@ val Greeting : State = state() {
 
     onEntry {
         furhat.attend(users.current)
-        furhat.ask {
-            +"Hallo, ich bin Hannah, der neue Serviceroboter hier in unserem Dialysezentrum. Können Sie mir sagen, ob sie ein Taxifahrer "
-            +"oder ein Dialysepatient in unserem Dialysezentrum sind?"
+        furhat.ask (interruptable = true) {
+            +"Hallo, ich bin Hannah, der neue Serviceroboter hier in unserem Dialysezentrum. Sind Sie ein Taxifahrer oder ein Dialysepatient in diesem Dialysezentrum?"
             +blocking {
                 furhat.gesture(Gestures.BrowRaise, async = false)
             }
         }
-
     }
-
-    onResponse<Patient> {
+       onResponse<Patient> {
         furhat.say {
-            +"${furhat.voice.emphasis("Patient")} also, dann kann ich Ihnen weiterhelfen."
+            +"Gut, dann kann ich Ihnen weiterhelfen."
             +blocking {
                 furhat.gesture(Gestures.BigSmile, async = false)
             }
@@ -40,18 +38,18 @@ val Greeting : State = state() {
         //Mit der Funktion stelle Frage wird die Frage nach den Namen des Gesprächspartners
         //user kann nicht mehr null sein deswegen können wir schreiben user!!, da user bereits gesetzt
         //TODO hier reentry falls name falsch
-        stellefrage(user!!, this.furhat, "Bitte geben Sie Ihren Vornamen ein", "vorname")
-        stellefrage(user!!, this.furhat, "Bitte geben Sie Ihren Nachnamen ein", "name")
+        GetDigitsPatient(user!!, this.furhat, "Patientennummer")
+
 
         // der Name des Users wird mit den Eingabewerten des fields vorname sowie name gesetzt, der value beschreibt die Zusammensetzung des fields fullname
-        user!!.put("fullname", "${user!!.get("name")}, ${user!!.get("vorname")}")
+        //user!!.put("fullname", "${user!!.get("name")}, ${user!!.get("vorname")}")
         //TODO wenn der name richtig ist weiter ansonsten reentry, weil name falsch
-    goto(ValidierungNamePatient)
+    goto(ValidierungNummerPatient)
 
     }
     onResponse<Taxidriver> {
         furhat.say {
-            +"Taxifahrer also, dann kann ich Ihnen weiterhelfen."
+            +"Taxifahrer, dann kann ich Ihnen weiterhelfen."
             +blocking {
                 furhat.gesture(Gestures.BigSmile, async = false)
             }
@@ -63,16 +61,17 @@ val Greeting : State = state() {
         //Mit der Funktion stelle Frage wird die Frage nach den Namen des Gesprächspartners
         //user kann nicht mehr null sein deswegen können wir schreiben user!!, da user bereits gesetzt
         //TODO hier reentry falls name falsch
-        stellefrage(user!!, this.furhat, "Bitte geben Sie Ihren Vornamen ein", "vorname")
-        stellefrage(user!!, this.furhat, "Bitte geben Sie Ihren Nachnamen ein", "name")
+        GetDigitsTaxifahrer(user!!, this.furhat, "Patientennummer")
+        //stellefrage(user!!, this.furhat, "Bitte geben Sie Ihren Vornamen ein", "vorname")
+        //stellefrage(user!!, this.furhat, "Bitte geben Sie Ihren Nachnamen ein", "name")
 
         // der Name des Users wird mit den Eingabewerten des fields vorname sowie name gesetzt, der value beschreibt die Zusammensetzung des fields fullname
-        user!!.put("fullname", "${user!!.get("name")}, ${user!!.get("vorname")}")
+        //user!!.put("Patientennummer", "${user!!.get("name")}, ${user!!.get("vorname")}")
         //TODO wenn der name richtig ist weiter ansonsten reentry, weil name falsch
-        goto(Taxidriverdialogue)
+        goto(ValidierungNummerKunde)
     }
-    onResponse<No> {
-        furhat.say("Okay, hoffentlich sehen wir uns mal wieder. Bitte registrieren Sie sich an der Rezeption, dazu gehen sie bitte direkt links")
+    onResponse<Nein> {
+        furhat.say("Okay, hoffentlich sehen wir uns mal wieder. Bitte registrieren Sie sich an der Rezeption, dazu gehen sie bitte nach diesem Flur rechts")
         //Der Kopf soll richtung Rezeption schauen, locationa soll die Rezeption sein
 
         furhat.attend(locationa)
@@ -82,3 +81,7 @@ val Greeting : State = state() {
     }
 
 }
+
+
+
+
