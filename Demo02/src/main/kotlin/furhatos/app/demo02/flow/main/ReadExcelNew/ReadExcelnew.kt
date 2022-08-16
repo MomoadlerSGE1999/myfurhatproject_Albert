@@ -14,7 +14,7 @@ import java.time.DayOfWeek
 val ReadExcel : State = state() {
 
 
-        val filename: String = "C:\\data\\Belegungsplan_Nephro.xls"
+        val filename: String = "C:\\data\\Nephro_Nachname_Vorname_Patientennummer_1.xls"
         //Hier wird ein Woorkbook erstellt und über FileInputStream mit Variable "Filename" gefunden
         val wb = WorkbookFactory.create(FileInputStream(filename))
         //Hier wird die Arbeitsmappe in der Excel ausgewählt, der Index 0 sthet dabei für die erste Arbeitsmappe
@@ -24,14 +24,14 @@ val ReadExcel : State = state() {
         var raum: String? = null
         //Die erste Forschleife läuft einmal durch jede Zeile der Excell durch und bezieht sich in ihrer Taktung auf die einzelnen Zeilen der Excel,
         //dabei definieren die ifs und die zweite vorschleife wie die Zellen befüllt werden.
-        // ausgegeben wird die anzahl an Zeilen, die eins höher als die letzte Reihennummer des Sheets.
+        // ausgegeben wird die anzahl an Zeilen, die eins höher als die letzte Reihennummer des Sheets ist.
         for (rowIndex in 0 until sheet.lastRowNum + 1) {
-            //der val rowContent ist so definiert, dass er nullable sein kann, er da viele Zellen, der Excel den wert null haben, der RowIndex gibt die Spalte an
+            //der val rowContent ist so definiert, dass er nullable sein kann, der RowIndex gibt die Zeile an
             val rowContent: Row? = sheet.getRow(rowIndex)
-            //Wenn der Zeileninhalt der aktuellen zeile nicht Null ist, dann hole den Wert aus der jeweiligen zeilen aus den
-            // Zellen mit dem Zellenindex 2 und 1, also C und B,
+            //Wenn der Zeileninhalt der aktuellen zeile nicht Null ist, dann hole den Wert aus der jeweiligen zeilen
+            // Cellnum 2 bzw 1 = Zellen mit dem Zellenindex 2 und 1, also Spalte C und B,
             // Der Inhalt der hier aus den Zellen gelesen wird ist entweder die Beschreibung des Raumes B oder die Beschreibung des Platzes C
-            //Durch get cell wird eine Zelle in den jeweiligen Zellen mit dem Index 2 und 1 sprich der Spalten 2 und 1 erzeugt, wenn diese nicht null beträgt
+            //Durch get cell wird eine Zelle in den jeweiligen Zeilen mit dem Index 2 und 1 sprich der Spalten 2 und 1 erzeugt, wenn diese nicht null beträgt
             if (rowContent != null) {
                 val cellPlatz: Cell? = rowContent.getCell(2)
                 val cellRaum: Cell? = rowContent.getCell(1)
@@ -52,6 +52,7 @@ val ReadExcel : State = state() {
                     if (cellPlatzString.startsWith("Platz")) {
                         if (raum == null) {
                             for (rowIndex2 in rowIndex until sheet.lastRowNum + 1) {
+                               //Name shadowing means that you are using variables with the same name in different scopes, making it more likely that you by accident refer to the wrong one. The solution is to rename them to be different.
                                 val cellRaum: Cell? = rowContent.getCell(1)
                                 if (cellRaum != null) {
                                     raum = cellRaum.toString()
@@ -70,16 +71,21 @@ val ReadExcel : State = state() {
             }
         }
         onEntry {
-            var name: String = user!!.get("fullname").toString()
+            var name: String = user!!.get("Patientennummer").toString()
             // TODO Mit Var Wochentag einen zeitstempel setzen, der basierend auf dem Wochentag die Col als Int setzt
             //TODO var Wochentag = Col "Muss dann hier den aktuellen Wochentag ausgeben und entsprechend der Spaltenlogik einen Int setzen"
             //Die Funktion hat drei Variablen: sheet=Arbeitsmappe, col= Tag bzw Spalte des Sheets, name=Patientenname
-            var ergebnis = suchePatient(sheet, 3, name)
+            var ergebnis = suchePatient(sheet,
+                3,
+                name)
 
 //wenn das ergebnis -1 ist, wurde der Name nicht gefunden
             for (platz in platzList) {
                 if (ergebnis == -1) {
                     println("Patient: $name nicht gefunden")
+                    furhat.say("Sie stehen leider nicht auf dem Belegungsplan welcher mir vorliegt, bitte fragen Sie an der Rezeption nach." +
+                            "Ich wünsche Ihnen einen schönen Tag"
+                    )
                     break
                 }
 //Ist die Zeile der gefundenen Zelle gleich der Zeile des Platzes so kann für den tag X der Platz des Patienten bestimmt werden,
@@ -103,7 +109,7 @@ val ReadExcel : State = state() {
             }
         }
     }
-
+//Fehler dialog und model trenne, also auslesecode von dialog trennen
 
 
 
