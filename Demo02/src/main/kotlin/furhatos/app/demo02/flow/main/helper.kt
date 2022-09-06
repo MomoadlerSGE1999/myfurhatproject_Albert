@@ -1,7 +1,9 @@
 package furhatos.app.demo02.flow.main
 
+import DigitsFive
 import GlobalKeyListenerExample
 import furhatos.flow.kotlin.*
+import furhatos.nlu.Intent
 import furhatos.nlu.common.DontKnow
 import furhatos.nlu.common.Number
 import furhatos.records.User
@@ -117,18 +119,18 @@ fun GetDigitsPatient (user: User, furhat: Furhat, field: String) {
             reentry()
         }
     }
-    //furhat.say("Ihre Patientennummer ist ${Patientennummer}")
+   // furhat.say("Ihre Patientennummer ist ${Patientennummer}")
 
 
 
 //Ist der Input nicht null
-    if (Patientennummer!=null) {
-//So wird field mit der variable input gefüllt
+   if (Patientennummer!=null) {
+//So wird das field mit der variable input gefüllt
         user.put("Patientennummer", Patientennummer)
-    }
-    else {
-        user.put("Patientennummer", "")
-    }
+   }
+   else {
+       user.put("Patientennummer", "")
+   }
 
 }
 fun GetDigitsTaxifahrer(user: User, furhat: Furhat, field: String) {
@@ -144,7 +146,7 @@ fun GetDigitsTaxifahrer(user: User, furhat: Furhat, field: String) {
             reentry()
         }
     }
-    furhat.say("Die Patientennummer Ihres Kunden ist ${Patientennummer}")
+    //furhat.say("Die Patientennummer Ihres Kunden ist ${Patientennummer}")
 
 
 //Ist der Input nicht null
