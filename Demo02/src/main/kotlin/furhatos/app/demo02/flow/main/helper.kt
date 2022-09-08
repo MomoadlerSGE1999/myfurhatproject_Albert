@@ -4,6 +4,8 @@ import DigitsFive
 import GlobalKeyListenerExample
 import furhatos.flow.kotlin.*
 import furhatos.nlu.Intent
+import furhatos.nlu.MultiIntentHyp
+import furhatos.nlu.common.Date
 import furhatos.nlu.common.DontKnow
 import furhatos.nlu.common.Number
 import furhatos.records.User
@@ -113,19 +115,25 @@ fun GetDigitsPatient (user: User, furhat: Furhat, field: String) {
 //er schaut den user an, der geantwortet hat und für den der name durch diese Funktion hinterlegt werden wird
     furhat.attend(user.id)
 
-    var Patientennummer: Number? = furhat.askFor<Number>("Was ist ihre Patientennummer") {
+    var Patientennummer: Number? = furhat.askFor<furhatos.nlu.common.Number>("Was ist ihre Patientennummer") {
         onResponse<DontKnow> {
             furhat.say("Das sollten sie wissen")
             reentry()
         }
+        onResponse<furhatos.nlu.common.Number> {
+            var x: String = it.text.toString().replace(" ".toRegex(), "")
+            user.put("Patientennummer", x)
+            goto(ValidierungNummerPatient)
+        }
     }
+}
    // furhat.say("Ihre Patientennummer ist ${Patientennummer}")
 
 
-
+/*
 //Ist der Input nicht null
    if (Patientennummer!=null) {
-//So wird das field mit der variable input gefüllt
+//So wird das field mit der variable Patientennummer gefüllt
         user.put("Patientennummer", Patientennummer)
    }
    else {
@@ -133,6 +141,8 @@ fun GetDigitsPatient (user: User, furhat: Furhat, field: String) {
    }
 
 }
+
+ */
 fun GetDigitsTaxifahrer(user: User, furhat: Furhat, field: String) {
 //Furhat sagt die eingegebene Frage als Value mit dem field question,
 
@@ -140,25 +150,34 @@ fun GetDigitsTaxifahrer(user: User, furhat: Furhat, field: String) {
 //er schaut den user an, der geantwortet hat und für den der name durch diese Funktion hinterlegt werden wird
     furhat.attend(user.id)
 
-    var Patientennummer: Number? = furhat.askFor<Number>("Was ist die Patientennummer Ihres Kunden") {
+    var Patientennummer: Number? = furhat.askFor<furhatos.nlu.common.Number>("Was ist die Patientennummer ihres Kunden") {
         onResponse<DontKnow> {
             furhat.say("Das sollten sie wissen")
             reentry()
         }
+        onResponse<furhatos.nlu.common.Number> {
+            var x: String = it.text.toString().replace(" ".toRegex(), "")
+            user.put("Patientennummer", x)
+            goto(ValidierungNummerPatient)
+        }
     }
-    //furhat.say("Die Patientennummer Ihres Kunden ist ${Patientennummer}")
+}
+// furhat.say("Ihre Patientennummer ist ${Patientennummer}")
 
 
+/*
 //Ist der Input nicht null
-    if (Patientennummer!=null) {
-//So wird field mit der variable input gefüllt
-        user.put(field.toString(), Patientennummer)
-    }
-    else {
-        user.put(field.toString(), "")
-    }
+   if (Patientennummer!=null) {
+//So wird das field mit der variable Patientennummer gefüllt
+        user.put("Patientennummer", Patientennummer)
+   }
+   else {
+       user.put("Patientennummer", "")
+   }
 
 }
+
+ */
 
 
 
