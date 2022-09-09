@@ -1,5 +1,6 @@
 package furhatos.app.demo02.flow.main
 
+import FrageWiederholen
 import Ja
 import ReadExcel2
 import furhatos.app.demo02vergleich.flow.main.Idle
@@ -9,12 +10,13 @@ import furhatos.flow.kotlin.onResponse
 import furhatos.flow.kotlin.state
 import furhatos.gestures.Gestures
 import furhatos.nlu.common.No
+import kotlin.concurrent.timer
 
 val ValidierungNummerKunde : State = state() {
 
     onEntry {
         // Mit dem Ausdruck ${user!!.get("fullname")} wird der user und das field fullname angesprochen
-        println("Die Patientennummer Ihres Kunden ist ${user!!.get("Patientennummer")}")
+        //println("Die Patientennummer Ihres Kunden ist ${user!!.get("Patientennummer")}")
 
         //Hier wird der Name des Kunden nochmal wörtlich gesagt und somit eine fehleingabe vermieden
         furhat.ask(
@@ -46,5 +48,8 @@ val ValidierungNummerKunde : State = state() {
     }
     onResponse<No> {
         goto(WennNameFalschTaxifahrer)
+    }
+    onResponse<FrageWiederholen> {
+        reentry()
     }
 }

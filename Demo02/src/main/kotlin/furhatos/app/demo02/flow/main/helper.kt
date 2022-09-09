@@ -1,11 +1,7 @@
 package furhatos.app.demo02.flow.main
 
-import DigitsFive
-import GlobalKeyListenerExample
+import FrageWiederholen
 import furhatos.flow.kotlin.*
-import furhatos.nlu.Intent
-import furhatos.nlu.MultiIntentHyp
-import furhatos.nlu.common.Date
 import furhatos.nlu.common.DontKnow
 import furhatos.nlu.common.Number
 import furhatos.records.User
@@ -13,8 +9,6 @@ import org.apache.commons.lang3.StringUtils
 import org.apache.poi.ss.usermodel.Cell
 import org.apache.poi.ss.usermodel.Row
 import org.apache.poi.ss.usermodel.Sheet
-import org.jnativehook.GlobalScreen
-import org.jnativehook.NativeHookException
 
 
 fun stellefrage(user: User, furhat: Furhat, question: String, field: String) {
@@ -115,7 +109,7 @@ fun GetDigitsPatient (user: User, furhat: Furhat, field: String) {
 //er schaut den user an, der geantwortet hat und für den der name durch diese Funktion hinterlegt werden wird
     furhat.attend(user.id)
 
-    var Patientennummer: Number? = furhat.askFor<furhatos.nlu.common.Number>("Was ist ihre Patientennummer") {
+    var Patientennummer: Number? = furhat.askFor<furhatos.nlu.common.Number>("Was ist ihre Patientennummer", timeout = 20000) {
         onResponse<DontKnow> {
             furhat.say("Das sollten sie wissen")
             reentry()
@@ -124,6 +118,9 @@ fun GetDigitsPatient (user: User, furhat: Furhat, field: String) {
             var x: String = it.text.toString().replace(" ".toRegex(), "")
             user.put("Patientennummer", x)
             goto(ValidierungNummerPatient)
+        }
+        onResponse<FrageWiederholen> {
+            reentry()
         }
     }
 }
@@ -150,7 +147,7 @@ fun GetDigitsTaxifahrer(user: User, furhat: Furhat, field: String) {
 //er schaut den user an, der geantwortet hat und für den der name durch diese Funktion hinterlegt werden wird
     furhat.attend(user.id)
 
-    var Patientennummer: Number? = furhat.askFor<furhatos.nlu.common.Number>("Was ist die Patientennummer ihres Kunden") {
+    var Patientennummer: Number? = furhat.askFor<furhatos.nlu.common.Number>("Was ist die Patientennummer ihres Kunden", timeout = 20000) {
         onResponse<DontKnow> {
             furhat.say("Das sollten sie wissen")
             reentry()

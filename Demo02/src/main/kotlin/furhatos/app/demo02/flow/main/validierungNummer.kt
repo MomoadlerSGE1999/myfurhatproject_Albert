@@ -1,8 +1,10 @@
 package furhatos.app.demo02.flow.main
 
+import FrageWiederholen
 import Ja
 import ReadExcel
 import ReadExcel2
+import furhatos.app.demo02vergleich.flow.main.Idle
 import furhatos.flow.kotlin.State
 import furhatos.flow.kotlin.furhat
 import furhatos.flow.kotlin.onResponse
@@ -36,6 +38,7 @@ val ValidierungNummerPatient : State = state() {
                         "Sie stehen leider nicht auf dem Belegungsplan welcher mir vorliegt, bitte fragen Sie an der Rezeption nach. Ich wünsche Ihnen einen schönen Tag"
                     )
                     //TODO Goto idle o. Ä. zur erstellung von loop
+                    goto(Idle)
                 }
                 goto(Patientdialogue)
             }
@@ -48,4 +51,7 @@ val ValidierungNummerPatient : State = state() {
         onResponse<Nein> {
             goto(WennNameFalschPatient)
         }
+    onResponse<FrageWiederholen> {
+        reentry()
+    }
     }

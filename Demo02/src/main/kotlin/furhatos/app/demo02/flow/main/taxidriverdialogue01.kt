@@ -9,22 +9,11 @@ import nlu.Nein
 
 val Taxidriverdialogue01 : State = state(){
     onEntry {
-        furhat.ask("Darf ich Ihnen mitteilen, wo Sie Herrn ${user!!.get("name")} finden werden?"
-        //, interruptable = true
-        )
-    }
-    onResponse<Ja> {
         var raumx: Any? = user!!.get("raum")
-        furhat.say(" Ich würde Sie bitten Ihren Kunden in den ${furhat.voice.emphasis("$raumx")} an den ${user!!.get("platz")} abzuholen")
+        furhat.say(" Ich würde Sie bitten ${furhat.voice.emphasis("${user!!.get("name")}")} im ${furhat.voice.emphasis("$raumx")} am ${user!!.get("platz")} abzuholen")
         furhat.say("Es war mir eine Freude Ihnen zu helfen")
         furhat.gesture(Gestures.Nod())
-        goto(Idle)
-
-    }
-    onResponse<Nein> {
-        furhat.say("Dann fragen Sie bitte vorne an der Rezeption nach")
-        furhat.attend(locationa)
+        delay(20000)
         goto(Idle)
     }
-
 }

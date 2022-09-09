@@ -11,7 +11,7 @@ val Taxidriverdialogue : State = state() {
 
     onEntry {
         furhat.ask (
-            " sind Sie hier um einen Kunden abzuholen?"
+            " sind Sie hier um einen Kunden abzuholen oder an seinen Platz zu bringen?"
         )
     }
     onResponse<Ja> {

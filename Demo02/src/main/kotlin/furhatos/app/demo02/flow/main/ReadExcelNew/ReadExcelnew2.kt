@@ -17,11 +17,12 @@ import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
+import kotlin.contracts.*
 
 fun ReadExcel2(user: User) {
 
 
-        val filename: String = "C:\\data\\Nephro_Nachname_Vorname_Patientennummer_1.xls"
+        val filename: String = "C:\\data\\Belegungsplan Komplette Schichten(2).xls"
         //Hier wird ein Woorkbook erstellt und über FileInputStream mit Variable "Filename" gefunden
         val wb = WorkbookFactory.create(FileInputStream(filename))
         //Hier wird die Arbeitsmappe in der Excel ausgewählt, der Index 0 sthet dabei für die erste Arbeitsmappe
@@ -78,11 +79,12 @@ fun ReadExcel2(user: User) {
             }
         }
 
-
+//Die Nummer nach der gesucht wird ist die Nummer, die durch die Antwort des Gesprächspartners als Field "Pateintennummer" gespeichert wurde
     var searchNum: String = user!!.get("Patientennummer").toString()
-
+//Var Spalte wird initial gesetzt, sodass sie auf Basis des Wochentages überschrieben werden kann.
+//Für den jeweiligen Wochentag ist dann die korrekte Spalte im Patientenplan hinterlegt
     var spalte: Int? = null
-
+//TODO Torsten fragen, ob man das irgendwie schlauer lösen kann ohne eine Liste zu erzeugen, klappen tut es aktuell aber trzdm
     var daten: List<String> = LocalDate.now().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)).split(",")
 
     if(daten[0] == "Montag") {
@@ -107,11 +109,10 @@ fun ReadExcel2(user: User) {
     if (daten[0] == "Sonntag") {
         spalte = 9
     }
-
+// Die Variable Spalte überschreibt dann die Variable Col, die definiert in welcher Spalte der Excel die patientennummer gesucht wird.
+// Die verscheidnenen Spalten der Excell sind nach Wochentagen aufgeteilt
     var col = spalte
 
-    //TODO Mit Var Wochentag einen zeitstempel setzen, der basierend auf dem Wochentag die Col als Int setzt
-    //TODO var Wochentag = Col "Muss dann hier den aktuellen Wochentag ausgeben und entsprechend der Spaltenlogik einen Int setzen"
     var foundrowIndex = -1
 
         //die Variable PatientName ist ein nullable String, hier beträgt der noch nicht überschriebene Wert null
@@ -122,15 +123,21 @@ fun ReadExcel2(user: User) {
             val rowContent: Row? = sheet.getRow(rowIndex)
         //Wenn der Zeileninhalt nicht null ist, dann erzeuge einen Value in Form einer Zelle mit dem Inhalt der Zelle in Zeile X und Spalte (col)
             if (rowContent != null) {
+                //hier definiert die variable col die Spalte in der nach der jeweiligen patientennummer gesucht wird
                 val cellDay: Cell? = rowContent.getCell(col!!)
-                //Wenn der Inhalt des Values CellDay nicht null ist, was er auch nicht sein kann, da das vorherige if diesen Fall schon abdeckt, §§ nur ausführen wenn in der zelle die Zahlenkombination (searchnum) steht
-                // dann überschreibe die Variable patientNum mit dem Inhalt dem Values CellDay
+                //Wenn der Inhalt des Values CellDay nicht null ist
+                // if wird nur dann ausgeführt, wenn die jeweilige zelle die Zahlenkombination (searchnum) enthält
+                // dann überschreibe die Variable patientNum (vorher NULL) mit dem Inhalt dem Values CellDay
                 if(cellDay!=null && cellDay.toString().contains(searchNum)) {
                     //Nach jedem Komma erzeugt einen neuen weret
-                    val temp = cellDay.toString().split(',')
-
-                    //Value beschreibt erstmal jeden einzelnen wert innerhalb der list, jede zelle wird ausgegeben die gefunden wird und da ab erfolgreichen abgleich keine neue zelle mehr gefunden wird
+                    val temp = cellDay.toString().split('*')
+                    //Value temp beschreibt erstmal die Zelle, welche mit der entsprechenden patientenummer gefunden wurde,aus der Zelle wird eine Liste (patnum + patname)
+                    //der Inhalt der Zelle wird dann so getrennt, dass man aus den einzelnen mit "split" getrennten werten die Patientennummer und den Patientennamen als Wert bekommt
+                    patientNum = Integer.parseInt(temp[0].trim()).toString()
+                    patientname = temp[1].trim()
+                    /*
                     for (value in temp){
+
                         //Wenn wert in Liste numeric = true, trim eliminiert leerzeichen, wenn numerischer wert dann wird patientennummer gesetzt, BSP: Haas Helmut
                         if (StringUtils.isNumeric(value.trim())){
                             if (value.trim().length == 5) {
@@ -144,6 +151,8 @@ fun ReadExcel2(user: User) {
                             }
                         }
                     }
+
+                     */
                     //patientNum = cellDay.toString().substring(startIndex = 0, endIndex = 5)
                     // TODO patientname = cellDay.toString().substring(startIndex = 7)
                     //Ist die gesuchte Patientennummer = der gefundenen Patientennummer (Searchnum) dann wird der RowIndex ausgegeben und über die Reihe Platz und Raum
@@ -169,24 +178,20 @@ fun ReadExcel2(user: User) {
                     println("Patient: $searchNum nicht gefunden")
                     break
                 }
-//Ist die Zeile der gefundenen Zelle gleich der Zeile des Platzes so kann für den tag X der Platz des Patienten bestimmt werden,
+//Ist die Zeile der gefundenen Zelle gleich der Zeile des Platzes so kann für den tag X (var Col) der Platz des Patienten bestimmt werden,
 // da die Zeile des Patienten, die durch die Funktion gefunden wurde in der Excel auch die Information des Raumes enthält.
                 if (platz.zeile == foundrowIndex) {
                     println("Patient: $searchNum")
                     var platzfurhat: String = platz.platz
                     var raumfurhat: String = platz.raum.toString().substring(startIndex = 10, endIndex = 18)
-
+//hier wird dann das Field Raum sowie Platz gesetzt die aus dem matching platz.zeile == foundrowIndex hervorgehen
+// dadurch, dass das Field für den User gesetzt wurde, ist nicht nur die Patientennummer und der Name mit der Userid verbunden, sondern auch die Platzt und Rauminformation
                     user!!.put("raum", raumfurhat)
                     user!!.put("platz", platzfurhat)
                 }
             }
         }
 
-
-
-
-
-//TODO Fehler dialog und model trenne, also auslesecode von dialog trennen,
 
 
 
