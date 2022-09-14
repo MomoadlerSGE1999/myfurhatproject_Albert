@@ -10,9 +10,7 @@ val AngehörigeUndTaxifahrer : State = state() {
 
         furhat.ask() {
             +"Möchten Sie einen Angehörigen oder einen Kunden bringen beziehungsweise abholen?"
-            +blocking {
-                furhat.gesture(Gestures.BigSmile, async = false)
-            }
+            furhat.gesture(Gestures.BigSmile)
         }
     }
     onResponse<Ja> {
@@ -24,13 +22,6 @@ val AngehörigeUndTaxifahrer : State = state() {
 //user kann nicht mehr null sein deswegen können wir schreiben user!!, da user bereits gesetzt
 //TODO hier reentry falls name falsch
         GetDigitsTaxifahrer(user!!, this.furhat, "Patientennummer")
-//stellefrage(user!!, this.furhat, "Bitte geben Sie Ihren Vornamen ein", "vorname")
-//stellefrage(user!!, this.furhat, "Bitte geben Sie Ihren Nachnamen ein", "name")
-
-// der Name des Users wird mit den Eingabewerten des fields vorname sowie name gesetzt, der value beschreibt die Zusammensetzung des fields fullname
-//user!!.put("Patientennummer", "${user!!.get("name")}, ${user!!.get("vorname")}")
-//TODO wenn der name richtig ist weiter ansonsten reentry, weil name falsch
-        goto(ValidierungNummerKunde)
     }
     onResponse<Nein> {
         furhat.say() {
@@ -46,5 +37,8 @@ val AngehörigeUndTaxifahrer : State = state() {
     }
     onResponse<FrageWiederholen> {
         reentry()
+    }
+    onNoResponse {
+
     }
 }

@@ -9,6 +9,7 @@ import furhatos.flow.kotlin.State
 import furhatos.flow.kotlin.furhat
 import furhatos.flow.kotlin.onResponse
 import furhatos.flow.kotlin.state
+import furhatos.flow.kotlin.voice.Voice
 import furhatos.gestures.Gestures
 import nlu.Nein
 
@@ -19,14 +20,17 @@ val ValidierungNummerPatient : State = state() {
         println("Ihre Patientennummer ist ${user!!.get("Patientennummer")}")
 
         //Hier wird der Name des Kunden nochmal wörtlich gesagt und somit eine fehleingabe vermieden
-        furhat.ask(
-            "Die Patientennummer ist ${user!!.get("Patientennummer")}, stimmt das?"
+        furhat.ask() {
+            +"Die Patientennummer ist"
+            +voice.sayAs("${user!!.get("Patientennummer")}", Voice.SayAsType.DIGITS)
+            +", stimmt das?"
             //,interruptable = true
-        )
+        }
         furhat.gesture(Gestures.BigSmile)
     }
 
         onResponse<Ja> {
+            furhat.attend(it.userId)
             //Nachdem der aktuelle user geantwortet hat, ist der Ausdruck it mit seiner userid gesetzt
             //Die Frage ist, ist der User der geantwortet hat, immer noch derselbe wie der dessen Namen gesetzt wurde
             // Ist dies der Fall geht es weiter mit der Interaktion, ist dies nicht der Fall, geht es nochmal von
@@ -37,7 +41,6 @@ val ValidierungNummerPatient : State = state() {
                     furhat.say(
                         "Sie stehen leider nicht auf dem Belegungsplan welcher mir vorliegt, bitte fragen Sie an der Rezeption nach. Ich wünsche Ihnen einen schönen Tag"
                     )
-                    //TODO Goto idle o. Ä. zur erstellung von loop
                     goto(Idle)
                 }
                 goto(Patientdialogue)
@@ -49,9 +52,11 @@ val ValidierungNummerPatient : State = state() {
         }
 
         onResponse<Nein> {
-            goto(WennNameFalschPatient)
+            furhat.attend(it.userId)
+            goto(WennNummerFalschPatient)
         }
     onResponse<FrageWiederholen> {
+        furhat.attend(it.userId)
         reentry()
     }
     }

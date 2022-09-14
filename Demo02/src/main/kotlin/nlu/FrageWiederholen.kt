@@ -13,9 +13,12 @@ class FrageWiederholen : Intent() {
         "Was",
         "Nochmal",
         "wie bitte",
-        "Was sagt er?",
-            "Kannst du das bitte nochmal sagen",
-        "Was sagtest du"
+        "Was sagt er?", "Kannst du das bitte nochmal sagen",
+        "Was sagtest du",
+        "Hä",
+        "Wie bitte",
+        "Was hat er gesagt",
+        "Was hast du gesagt"
 
 
         )

@@ -11,6 +11,7 @@ import org.apache.poi.ss.usermodel.Row
 import org.apache.poi.ss.usermodel.Sheet
 
 
+
 fun stellefrage(user: User, furhat: Furhat, question: String, field: String) {
 //Furhat sagt die eingegebene Frage als Value mit dem field question,
         furhat.say(question)
@@ -107,16 +108,17 @@ fun GetDigitsPatient (user: User, furhat: Furhat, field: String) {
 
     //delay(3000)
 //er schaut den user an, der geantwortet hat und für den der name durch diese Funktion hinterlegt werden wird
-    furhat.attend(user.id)
 
-    var Patientennummer: Number? = furhat.askFor<furhatos.nlu.common.Number>("Was ist ihre Patientennummer", timeout = 20000) {
+
+    var Patientennummer: Number? = furhat.askFor<furhatos.nlu.common.Number>("Was ist ihre Patientennummer", timeout = 20000, endSil = 4000) {
         onResponse<DontKnow> {
             furhat.say("Das sollten sie wissen")
             reentry()
         }
         onResponse<furhatos.nlu.common.Number> {
             var x: String = it.text.toString().replace(" ".toRegex(), "")
-            user.put("Patientennummer", x)
+            var resultx: String = x.filter { it.isDigit() }
+            user.put("Patientennummer", resultx)
             goto(ValidierungNummerPatient)
         }
         onResponse<FrageWiederholen> {
@@ -145,17 +147,17 @@ fun GetDigitsTaxifahrer(user: User, furhat: Furhat, field: String) {
 
     //delay(3000)
 //er schaut den user an, der geantwortet hat und für den der name durch diese Funktion hinterlegt werden wird
-    furhat.attend(user.id)
 
-    var Patientennummer: Number? = furhat.askFor<furhatos.nlu.common.Number>("Was ist die Patientennummer ihres Kunden", timeout = 20000) {
+    var Patientennummer: Number? = furhat.askFor<furhatos.nlu.common.Number>("Was ist die Patientennummer ihres Kunden beziehungsweise Angehörigen", timeout = 20000, endSil = 4000) {
         onResponse<DontKnow> {
             furhat.say("Das sollten sie wissen")
             reentry()
         }
         onResponse<furhatos.nlu.common.Number> {
             var x: String = it.text.toString().replace(" ".toRegex(), "")
-            user.put("Patientennummer", x)
-            goto(ValidierungNummerPatient)
+            var resultx: String = x.filter { it.isDigit() }
+            user.put("Patientennummer", resultx)
+            goto(ValidierungNummerKunde)
         }
     }
 }
