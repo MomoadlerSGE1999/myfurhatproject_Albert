@@ -1,6 +1,7 @@
 package furhatos.app.demo02
 
 
+import Greetingname
 import furhatos.app.demo02.flow.Init
 import furhatos.app.demo02.flow.main.Patientdialogue
 import furhatos.app.demo02vergleich.flow.main.Idle

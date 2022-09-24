@@ -18,10 +18,10 @@ val locationa= Location (3.0, 0.0, 2.0)
 val Greeting : State = state() {
 
     onEntry {
-        furhat.attendClosestUser()
+        furhat.attend(users.current)
 
         furhat.ask (timeout = 20000) {
-            +"Hallo, ich bin Carla, der neue Serviceroboter hier in unserem Dialysezentrum. Sind sie Dialysepatient in diesem Dialysezentrum?"
+            +"Sind Sie Dialysepatient in diesem Dialysezentrum?"
             furhat.gesture(Gestures.BrowRaise, async = false)
         }
     }
@@ -29,9 +29,8 @@ val Greeting : State = state() {
         furhat.attend(it.userId)
         furhat.say {
             +"Gut, dann kann ich ${furhat.voice.emphasis("Ihnen")} weiterhelfen."
-            +blocking {
-                furhat.gesture(Gestures.BigSmile, async = false)
-            }
+            furhat.gesture(Gestures.BigSmile, async = false)
+
         }
         //Der Gesprächspartner wird nach der initialen setzung einer userID von Furhat, also nach der ersten Frage durch User definiert
         //Der Parameter user kann nun genutzt werden um den Gesprächspartner in Codelogik einzubauen, zb von der Funktion stellefrage

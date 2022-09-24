@@ -1,5 +1,6 @@
 package furhatos.app.demo02vergleich.flow.main
 
+import Greetingname
 import furhat.libraries.standard.AutomaticHeadMovements
 import furhat.libraries.standard.utils.attendClosestUser
 import furhatos.app.demo02.flow.Init
@@ -14,22 +15,35 @@ import khttp.get
 val Idle: State = state {
 
     init {
+        furhat.ledStrip.solid(java.awt.Color.WHITE)
         furhat.attend(users.other)
-        when {
-            users.count > 0 -> {
+        if (users.count > 0) {
                 furhat.attend(users.random)
-                goto(Greeting)
+                goto(Greetingname)
             }
+        else{
+            delay(5000)
+            reentry()
         }
     }
 
     onEntry {
-        furhat.attendNobody()
+            furhat.attend(users.other)
+            furhat.ledStrip.solid(java.awt.Color.BLUE)
+            furhat.attend(users.current)
+            goto(Greetingname)
+        }
+    onUserLeave {
+        furhat.attend(users.other)
+        furhat.attend(users.current)
+        goto(Greetingname)
     }
 
+
     onUserEnter {
+        furhat.ledStrip.solid(java.awt.Color.RED)
         furhat.attend(it)
-        goto(Greeting)
+        goto(Greetingname)
     }
 }
 

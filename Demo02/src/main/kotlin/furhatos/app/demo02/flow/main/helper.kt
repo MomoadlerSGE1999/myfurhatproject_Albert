@@ -118,7 +118,8 @@ fun GetDigitsPatient (user: User, furhat: Furhat, field: String) {
         onResponse<furhatos.nlu.common.Number> {
             var x: String = it.text.toString().replace(" ".toRegex(), "")
             var resultx: String = x.filter { it.isDigit() }
-            user.put("Patientennummer", resultx)
+            var resulty: String = resultx.substring(startIndex = 0, endIndex = 5)
+            user.put("Patientennummer", resulty)
             goto(ValidierungNummerPatient)
         }
         onResponse<FrageWiederholen> {
@@ -156,7 +157,8 @@ fun GetDigitsTaxifahrer(user: User, furhat: Furhat, field: String) {
         onResponse<furhatos.nlu.common.Number> {
             var x: String = it.text.toString().replace(" ".toRegex(), "")
             var resultx: String = x.filter { it.isDigit() }
-            user.put("Patientennummer", resultx)
+            var resulty: String = resultx.substring(startIndex = 0, endIndex = 5)
+            user.put("Patientennummer", resulty)
             goto(ValidierungNummerKunde)
         }
     }

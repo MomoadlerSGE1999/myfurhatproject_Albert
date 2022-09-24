@@ -1,6 +1,7 @@
 import furhatos.app.demo02.flow.main.GetDigitsTaxifahrer
 import furhatos.app.demo02.flow.main.ValidierungNummerKunde
 import furhatos.app.demo02.flow.main.user
+import furhatos.app.demo02vergleich.flow.main.Idle
 import furhatos.flow.kotlin.*
 import furhatos.gestures.Gestures
 import nlu.Nein
@@ -9,7 +10,7 @@ val AngehörigeUndTaxifahrer : State = state() {
     onEntry {
 
         furhat.ask() {
-            +"Möchten Sie einen Angehörigen oder einen Kunden bringen beziehungsweise abholen?"
+            +"Lieber ${user!!.get("VornameGesprächspartner")}, möchten Sie einen Angehörigen oder einen Kunden bringen beziehungsweise abholen?"
             furhat.gesture(Gestures.BigSmile)
         }
     }

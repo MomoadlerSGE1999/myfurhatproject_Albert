@@ -2,7 +2,6 @@ package furhatos.app.demo02.flow.main
 
 import FrageWiederholen
 import Ja
-import ReadExcel
 import WelcherPlatzRaum
 import furhat.libraries.standard.GesturesLib
 import furhatos.app.demo02vergleich.flow.main.Idle
@@ -21,18 +20,16 @@ val Patientdialogue : State = state() {
 
         var raumy: Any? = user!!.get("raum")
         var platzx: Any? = user!!.get("platz")
-        furhat.say(
-            "  Gut, ${user!!.get("name")}. Ich würde Sie ${furhat.voice.emphasis("bittten")} in den ${
-                furhat.voice.emphasis(
-                    "$raumy"
-                )
-            } an den ${user!!.get("platz")} zu gehen"
-        )
-        furhat.gesture(Gestures.Smile)
-        furhat.gesture(Gestures.Nod())
+        furhat.say() {
+            "  Gut, ${user!!.get("name")}. Ich würde Sie ${furhat.voice.emphasis("bittten")} in " +
+                    "den ${furhat.voice.emphasis("$raumy")} " + "an den ${user!!.get("platz")} zu gehen"
+            furhat.gesture(Gestures.Smile)
+            furhat.gesture(Gestures.Nod())
+        }
+        furhat.ledStrip.solid(java.awt.Color.GREEN)
         furhat.attendNobody()
 
-        furhat.listen()
+        furhat.listen(timeout = 8000)
     }
 
     onResponse<FrageWiederholen> {
