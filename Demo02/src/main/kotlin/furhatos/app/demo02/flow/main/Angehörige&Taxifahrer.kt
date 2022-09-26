@@ -6,11 +6,11 @@ import furhatos.flow.kotlin.*
 import furhatos.gestures.Gestures
 import nlu.Nein
 
-val AngehörigeUndTaxifahrer : State = state() {
+val AngehoerigeUndTaxifahrer : State = state(Parent) {
     onEntry {
 
         furhat.ask() {
-            +"Lieber ${user!!.get("VornameGesprächspartner")}, möchten Sie einen Angehörigen oder einen Kunden bringen beziehungsweise abholen?"
+            +"Lieber ${user.get("VornameGesprächspartner")}, sind Sie hier, um Jemanden zu bringen oder zu holen?"
             furhat.gesture(Gestures.BigSmile)
         }
     }
@@ -40,6 +40,6 @@ val AngehörigeUndTaxifahrer : State = state() {
         reentry()
     }
     onNoResponse {
-
+        reentry()
     }
 }

@@ -5,7 +5,7 @@ class FrageWiederholen : Intent() {
 
     override fun getExamples(lang: furhatos.util.Language): List<String> {
         return listOf(
-            "Wiederholen",
+        "Wiederholen",
         "Kanst du die frage wiederholen",
         "Nochmal bitte",
         "Kannst du das nochmal sagen",
@@ -18,7 +18,12 @@ class FrageWiederholen : Intent() {
         "Hä",
         "Wie bitte",
         "Was hat er gesagt",
-        "Was hast du gesagt"
+        "Was hast du gesagt",
+        "Können Sie die Information nochmal wiederholen",
+        "Kannst du die Information nochmal wiederholen",
+        "Nochmal bitte",
+        "Wie bitte",
+            "Was"
 
 
         )

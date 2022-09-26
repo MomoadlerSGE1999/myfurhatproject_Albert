@@ -8,7 +8,8 @@ class Ja : Intent() {
             "Genau",
             "Steinau",
             "Richtig",
-            "Korrekt", "So ist es",
+            "Korrekt",
+            "So ist es",
             "Das ist richtig",
             "Ja, korrekt",
             "Yes",
@@ -25,7 +26,8 @@ class Ja : Intent() {
             "ja klar",
             "aber sicher",
             "sicher doch",
-            "klar"
+            "klar",
+            "Janna"
         )
     }
 }

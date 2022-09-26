@@ -22,7 +22,7 @@ import kotlin.contracts.*
 fun ReadExcel2(user: User) {
 
 
-        val filename: String = "C:\\data\\Belegungsplan Komplette Schichten(2).xls"
+        val filename: String = "C:\\data\\NephroBelegungsplan26_09(1)"
         //Hier wird ein Woorkbook erstellt und über FileInputStream mit Variable "Filename" gefunden
         val wb = WorkbookFactory.create(FileInputStream(filename))
         //Hier wird die Arbeitsmappe in der Excel ausgewählt, der Index 0 sthet dabei für die erste Arbeitsmappe
@@ -131,28 +131,11 @@ fun ReadExcel2(user: User) {
                 if(cellDay!=null && cellDay.toString().contains(searchNum)) {
                     //Nach jedem Komma erzeugt einen neuen weret
                     val temp = cellDay.toString().split('*')
-                    //Value temp beschreibt erstmal die Zelle, welche mit der entsprechenden patientenummer gefunden wurde,aus der Zelle wird eine Liste (patnum + patname)
+                    //Value temp beschreibt die Zelle, welche mit der entsprechenden patientenummer gefunden wurde, aus der Zelle wird eine Liste (patnum + patname)
                     //der Inhalt der Zelle wird dann so getrennt, dass man aus den einzelnen mit "split" getrennten werten die Patientennummer und den Patientennamen als Wert bekommt
                     patientNum = Integer.parseInt(temp[0].trim()).toString()
                     patientname = temp[1].trim()
-                    /*
-                    for (value in temp){
 
-                        //Wenn wert in Liste numeric = true, trim eliminiert leerzeichen, wenn numerischer wert dann wird patientennummer gesetzt, BSP: Haas Helmut
-                        if (StringUtils.isNumeric(value.trim())){
-                            if (value.trim().length == 5) {
-                                patientNum = Integer.parseInt(value.trim()).toString()
-                                println(patientNum)
-                                                           }
-                            //ab hier kein nummerischer wert mehr
-                        } else {
-                            if (value.trim().length > 0){
-                                patientname += " " + value.trim()
-                            }
-                        }
-                    }
-
-                     */
                     //patientNum = cellDay.toString().substring(startIndex = 0, endIndex = 5)
                     // TODO patientname = cellDay.toString().substring(startIndex = 7)
                     //Ist die gesuchte Patientennummer = der gefundenen Patientennummer (Searchnum) dann wird der RowIndex ausgegeben und über die Reihe Platz und Raum

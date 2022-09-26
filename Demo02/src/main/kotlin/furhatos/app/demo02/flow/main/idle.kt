@@ -14,7 +14,31 @@ import khttp.get
 
 val Idle: State = state {
 
+
     init {
+        when {
+            users.count > 0 -> {
+                furhat.attendClosestUser()
+                goto(Greetingname)
+            }
+        }
+    }
+    onUserEnter {
+        furhat.ledStrip.solid(java.awt.Color.BLUE)
+        if(users.count > 0){
+            furhat.attendClosestUser()
+            goto(Greetingname)
+        }
+        else {
+            furhat.attendNobody()
+        }
+    }
+    onUserLeave {
+        goto(Init)
+    }
+}
+
+    /*init {
         furhat.ledStrip.solid(java.awt.Color.WHITE)
         furhat.attend(users.other)
         if (users.count > 0) {
@@ -28,7 +52,7 @@ val Idle: State = state {
     }
 
     onEntry {
-            furhat.attend(users.other)
+            furhat.attendClosestUser()
             furhat.ledStrip.solid(java.awt.Color.BLUE)
             furhat.attend(users.current)
             goto(Greetingname)
@@ -40,7 +64,7 @@ val Idle: State = state {
     }
 
 
-    onUserEnter {
+    onUserEnter(instant = true) {
         furhat.ledStrip.solid(java.awt.Color.RED)
         furhat.attend(it)
         goto(Greetingname)
@@ -85,5 +109,8 @@ val Idle: State = state {
 
 
     }
+
+     */
+
 
      */

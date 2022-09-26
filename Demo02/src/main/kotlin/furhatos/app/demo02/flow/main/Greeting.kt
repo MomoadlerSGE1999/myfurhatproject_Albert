@@ -1,8 +1,9 @@
 package furhatos.app.demo02.flow.main
 
-import AngehörigeUndTaxifahrer
+import AngehoerigeUndTaxifahrer
 import FrageWiederholen
 import Ja
+import Parent
 import furhat.libraries.standard.utils.attendClosestUser
 import furhatos.event.actions.ActionGaze
 import furhatos.flow.kotlin.*
@@ -15,13 +16,13 @@ import nlu.Nein
 
 var user: User? = null
 val locationa= Location (3.0, 0.0, 2.0)
-val Greeting : State = state() {
+val Greeting : State = state(Parent) {
 
     onEntry {
         furhat.attend(users.current)
 
         furhat.ask (timeout = 20000) {
-            +"Sind Sie Dialysepatient in diesem Dialysezentrum?"
+            +"Haben Sie heute einen Dialysetermin?"
             furhat.gesture(Gestures.BrowRaise, async = false)
         }
     }
@@ -46,7 +47,7 @@ val Greeting : State = state() {
     }
     onResponse<Nein>  {
         furhat.attend(it.userId)
-        goto(AngehörigeUndTaxifahrer)
+        goto(AngehoerigeUndTaxifahrer)
     }
     onResponse<FrageWiederholen> {
         furhat.attend(it.userId)

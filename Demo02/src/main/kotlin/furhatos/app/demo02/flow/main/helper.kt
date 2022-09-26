@@ -74,13 +74,6 @@ fun suchePatient(sheet: Sheet, col: Int, searchNum: String): Int {
                         if (value.trim().length == 5) {
                             patientNum = Integer.parseInt(value.trim()).toString()
                             //!= heißt das etwas nicht übereinstimmt
-                            /*if (searchNum != patientNum) {
-                                patientname = ""
-                                break
-                            }
-
-                             */
-
                         }
                         //ab hier kein nummerischer wert mehr
                     } else {
@@ -110,7 +103,7 @@ fun GetDigitsPatient (user: User, furhat: Furhat, field: String) {
 //er schaut den user an, der geantwortet hat und für den der name durch diese Funktion hinterlegt werden wird
 
 
-    var Patientennummer: Number? = furhat.askFor<furhatos.nlu.common.Number>("Was ist ihre Patientennummer", timeout = 20000, endSil = 4000) {
+    var Patientennummer: Number? = furhat.askFor<furhatos.nlu.common.Number>("Wie lautet ihre Patientennummer", timeout = 20000, endSil = 4000) {
         onResponse<DontKnow> {
             furhat.say("Das sollten sie wissen")
             reentry()
@@ -118,8 +111,7 @@ fun GetDigitsPatient (user: User, furhat: Furhat, field: String) {
         onResponse<furhatos.nlu.common.Number> {
             var x: String = it.text.toString().replace(" ".toRegex(), "")
             var resultx: String = x.filter { it.isDigit() }
-            var resulty: String = resultx.substring(startIndex = 0, endIndex = 5)
-            user.put("Patientennummer", resulty)
+            user.put("Patientennummer", resultx)
             goto(ValidierungNummerPatient)
         }
         onResponse<FrageWiederholen> {

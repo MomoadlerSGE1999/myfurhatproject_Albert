@@ -1,7 +1,6 @@
 package furhatos.app.demo02.flow
 
 
-import NummerErfragen
 import furhatos.app.demo02.flow.main.Greeting
 import furhatos.app.demo02.setting.distanceToEngage
 import furhatos.app.demo02.setting.maxNumberOfUsers

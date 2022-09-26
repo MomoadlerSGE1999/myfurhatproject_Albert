@@ -2,6 +2,7 @@ package furhatos.app.demo02.flow.main
 
 import FrageWiederholen
 import Ja
+import Parent
 import ReadExcel2
 import furhatos.app.demo02vergleich.flow.main.Idle
 import furhatos.flow.kotlin.State
@@ -13,7 +14,7 @@ import furhatos.gestures.Gestures
 import furhatos.nlu.common.No
 import kotlin.concurrent.timer
 
-val ValidierungNummerKunde : State = state() {
+val ValidierungNummerKunde : State = state(Parent) {
 
     onEntry {
         // Mit dem Ausdruck ${user!!.get("fullname")} wird der user und das field fullname angesprochen
@@ -23,7 +24,7 @@ val ValidierungNummerKunde : State = state() {
         //mit voice.sayAs... wird erst der Text bestimmt, der dann mit Voice.SayAsType.Digits in Ziffern von Furhat gesagt wird
         furhat.ask() {
             +"Die Patientennummer Ihres Angehörigen beziehungsweise Kunden ist"
-            +voice.sayAs("${user!!.get("Patientennummer")}", Voice.SayAsType.DIGITS)
+            +voice.sayAs("${user.get("Patientennummer")}", Voice.SayAsType.DIGITS)
             +", stimmt das?"
             +blocking {
                 furhat.gesture(Gestures.BigSmile)
