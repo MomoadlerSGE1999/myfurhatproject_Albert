@@ -1,4 +1,7 @@
+package furhatos.app.demo02.nluAlt
+
 import furhatos.nlu.Intent
+//Erklärung: Vergleiche Klasse "Ja"
 
 class Taxidriver : Intent() {
     //var name: String = ""

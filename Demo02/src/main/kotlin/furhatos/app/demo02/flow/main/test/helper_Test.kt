@@ -1,18 +1,99 @@
-package furhatos.app.demo02.flow.main
+/*
 
-import FrageWiederholen
-import furhatos.flow.kotlin.*
+
+import furhatos.flow.kotlin.furhat
+import furhatos.flow.kotlin.onResponse
+import furhatos.flow.kotlin.state
 import furhatos.nlu.common.DontKnow
 import furhatos.nlu.common.Number
-import furhatos.records.User
-import org.apache.commons.lang3.StringUtils
-import org.apache.poi.ss.usermodel.Cell
-import org.apache.poi.ss.usermodel.Row
-import org.apache.poi.ss.usermodel.Sheet
+
+/*
+val NummerErfragen : State = state() {
+    onEntry {
+        furhat.run {
+            setVoice(Language.GERMAN, Gender.FEMALE, false)
+            setInputLanguage(Language.GERMAN)
+        }
+furhat.askFor<Number>(
+    "Können Sie mir bitte Ihre Patientennummer sagen?"
+)
+        onResponse<Number> {
+            furhat.say("${it.intent}")
+        }
+    }
+}
+
+
+ */
+val NummerErfragen = state {
+    onEntry {
+        var Patientennummer = furhat.askFor<Number>("Was ist ihre Patientennummer") {
+            onResponse<DontKnow> {
+                furhat.say("Das sollten sie wissen")
+                reentry()
+            }
+        }
+        furhat.say("Ihre Patientennummer ist ${Patientennummer}")
+        // TODO Test: Patientennummer muss fünfstellig sein und darf nur aus Zahlen bestehen
+    }
+}
+
+
+/*val NummerErfragen : State = state() {
+    onEntry {
+        furhat.run {
+            setVoice(Language.GERMAN, Gender.FEMALE, false)
+            setInputLanguage(Language.GERMAN)
+
+            var Code = furhat.askFor<furhatos.nlu.common.Number>("Erste Zahl der Patientennummer, bitte")
+            furhat.say("$Code")
+            var Code2 = furhat.askFor<furhatos.nlu.common.Number>("Zweite Zahl der Patientennummer, bitte")
+            furhat.say("$Code2")
+            var Code3 = furhat.askFor<furhatos.nlu.common.Number>("Dritte Zahl der Patientennummer, bitte")
+            furhat.say("$Code3")
+            var Code4 = furhat.askFor<furhatos.nlu.common.Number>("Vierte Zahl der Patientennummer, bitte")
+            furhat.say("$Code4")
+            var Code5 = furhat.askFor<furhatos.nlu.common.Number>("Letzte Zahl der Patientennummer, bitte")
+            furhat.say("$Code5")
+        var Patientennummer2: String = Code.toString()+Code2.toString()+Code3.toString()+Code4.toString()+Code5.toString()
+            var PatientennummerInt: Int = Patientennummer2.toInt()
+
+
+            furhat.say("$Code")
+        }
+
+    }
+}
+
+ */
+
+/*val NummerErfragen : State = state() {
+
+    onEntry {
+        furhat.run {
+            setVoice(Language.GERMAN, Gender.FEMALE, false)
+            setInputLanguage(Language.GERMAN)
+    }
+        /*furhat.say(
+            "Können Sie mir bitte langsam und verständlich Ihre Patientennummer sagen? Ich wiederhole "
+        )
+
+         */
+        furhat.listen(timeout = 10000, endSil = 1800)
+    }
+    onResponse<Patientennummer> {
+        furhat.say("${it.intent.Patientencodenummer}, alles klar")
+    }
+
+
+ */
 
 
 
-fun stellefrage(user: User, furhat: Furhat, question: String, field: String) {
+
+ */
+
+/*fun stellefrage(user: User, furhat: Furhat, question: String, field: String) {
 //Furhat sagt die eingegebene Frage als Value mit dem field question,
         furhat.say(question)
         // furhat.attend(locationb) // Timer einfügen, da er nur für eine gewisse Zeit zur Tastatur schauen soll
@@ -31,16 +112,18 @@ fun stellefrage(user: User, furhat: Furhat, question: String, field: String) {
         }
 
     }
-//Fallunterscheidung wenn user wechselt, in else wird das szenario des Userwechsels abgedeckt und der State Greeting gecalled
 
+ */
+
+//Fallunterscheidung wenn user wechselt, in else wird das szenario des Userwechsels abgedeckt und der State Greeting gecalled
+/*
 fun userwechsel (flow: FlowControlRunner, userid: String){
-//Dem User der auf keinen Fall den Wert Null hat, wird ein Feld gelabelt mit dem Namen Dialogue02, somit ist Status der einzelnen userID bekannt (Wurde ine Name schon vergeben?,
-// ist der State Dialogue02 schon durchlaufen worden? -->Status,
-    user!!.put("Dialogue", "Dialogue02")
+//Dem User der auf keinen Fall den Wert Null hat, wird ein Feld gelabelt mit dem Wert Dialogue02, somit ist Status der einzelnen userID bekannt (wurde dem User schon eine Patientennummer zugeordnet?
+    Benutzer!!.put("Dialogue", "Dialogue02")
     //Hier wird eine neue Userid gesetzt
-    user=flow.users.getUser(userid)
+    Benutzer=flow.users.getUser(userid)
     // Wenn das field Dialogue den Wert Null hat, gehe zu Greeting und starte einen neuen Lauf, um auch den namen des neuen users zu haben
-    if (user!!.get("Dialogue")==null) {
+    if (Benutzer!!.get("Dialogue")==null) {
         flow.goto(Greeting)
     }
     //Trifft nichts davon ein, zb durch einen unerwarteten Fehler, so wird der Skill von vorne mit dem ersten call des States gestartet
@@ -50,8 +133,10 @@ fun userwechsel (flow: FlowControlRunner, userid: String){
     }
 }
 
+ */
+
 //Spalte col = tag
-fun suchePatient(sheet: Sheet, col: Int, searchNum: String): Int {
+/* fun suchePatient(sheet: Sheet, col: Int, searchNum: String): Int {
     //die Variable PatientName ist ein nullable String, hier beträgt der noch nicht überschriebene Wert null
     var patientNum: String? = null
     var patientname: String? = ""
@@ -96,81 +181,5 @@ fun suchePatient(sheet: Sheet, col: Int, searchNum: String): Int {
     return -1
 }
 
-fun GetDigitsPatient (user: User, furhat: Furhat, field: String) {
-//Furhat sagt die eingegebene Frage als Value mit dem field question,
-
-    //delay(3000)
-//er schaut den user an, der geantwortet hat und für den der name durch diese Funktion hinterlegt werden wird
-
-
-    var Patientennummer: Number? = furhat.askFor<furhatos.nlu.common.Number>("Wie lautet ihre Patientennummer", timeout = 20000, endSil = 4000) {
-        onResponse<DontKnow> {
-            furhat.say("Das sollten sie wissen")
-            reentry()
-        }
-        onResponse<furhatos.nlu.common.Number> {
-            var x: String = it.text.toString().replace(" ".toRegex(), "")
-            var resultx: String = x.filter { it.isDigit() }
-            user.put("Patientennummer", resultx)
-            goto(ValidierungNummerPatient)
-        }
-        onResponse<FrageWiederholen> {
-            reentry()
-        }
-    }
-}
-   // furhat.say("Ihre Patientennummer ist ${Patientennummer}")
-
-
-/*
-//Ist der Input nicht null
-   if (Patientennummer!=null) {
-//So wird das field mit der variable Patientennummer gefüllt
-        user.put("Patientennummer", Patientennummer)
-   }
-   else {
-       user.put("Patientennummer", "")
-   }
-
-}
-
  */
-fun GetDigitsTaxifahrer(user: User, furhat: Furhat, field: String) {
-//Furhat sagt die eingegebene Frage als Value mit dem field question,
-
-    //delay(3000)
-//er schaut den user an, der geantwortet hat und für den der name durch diese Funktion hinterlegt werden wird
-
-    var Patientennummer: Number? = furhat.askFor<furhatos.nlu.common.Number>("Was ist die Patientennummer ihres Kunden beziehungsweise Angehörigen", timeout = 20000, endSil = 4000) {
-        onResponse<DontKnow> {
-            furhat.say("Das sollten sie wissen")
-            reentry()
-        }
-        onResponse<furhatos.nlu.common.Number> {
-            var x: String = it.text.toString().replace(" ".toRegex(), "")
-            var resultx: String = x.filter { it.isDigit() }
-            var resulty: String = resultx.substring(startIndex = 0, endIndex = 5)
-            user.put("Patientennummer", resulty)
-            goto(ValidierungNummerKunde)
-        }
-    }
-}
-// furhat.say("Ihre Patientennummer ist ${Patientennummer}")
-
-
-/*
-//Ist der Input nicht null
-   if (Patientennummer!=null) {
-//So wird das field mit der variable Patientennummer gefüllt
-        user.put("Patientennummer", Patientennummer)
-   }
-   else {
-       user.put("Patientennummer", "")
-   }
-
-}
-
- */
-
-
 

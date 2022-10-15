@@ -1,6 +1,7 @@
 package nlu
 
 import furhatos.nlu.Intent
+//Erklärung: Vergleiche Klasse "Ja"
 
 class Nein : Intent() {
 
@@ -20,7 +21,12 @@ class Nein : Intent() {
             "Nein, ist falsch",
             "nope",
             "Falsch, das stimmt nicht",
-            "Nö"
+            "Nö",
+            "Maja",
+            "Mara",
+            "na",
+            "naja",
+            "na ja"
         )
     }
 }

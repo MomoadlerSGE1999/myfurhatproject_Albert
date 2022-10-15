@@ -1,0 +1,76 @@
+package furhatos.app.demo02.flow.main
+
+import FrageWiederholen
+import Ja
+import WelcherPlatzRaum
+import furhatos.app.demo02.flow.Parent
+import furhatos.app.demo02.flow.main.general.Idle
+import furhatos.flow.kotlin.*
+import furhatos.flow.kotlin.voice.Voice
+import furhatos.gestures.Gestures
+import nlu.Danke
+
+import nlu.Nein
+
+
+val Patientdialogue : State = state(Parent) {
+
+    onEntry {
+
+        //Zunächst werden die Variablen raumy, platzx, Dialysebeginn und Dialyseende mit den fields raum, platz,
+        //dialysebeginn und dialyseende des jeweiligen Patienten gesetzt und entsprechend manipuliert
+        val raumy: Any? = Benutzer!!.get("raum")
+        val platzx: Any? = Benutzer!!.get("platz")
+        var dialysebeginn: Any? = furhat.voice.sayAs(Benutzer!!.get("dialysebeginn").toString(), Voice.SayAsType.TIME)
+        var dialyseende: Any? = furhat.voice.sayAs(Benutzer!!.get("dialyseende").toString(), Voice.SayAsType.TIME)
+
+        //Der Nutzer wird über seine Termindaten informiert und weiß somit wann und wie lange seine Dialyse dauern wird
+            furhat.say (
+            "Gut, ${Benutzer!!.get("name")}. Ich würde Sie ${furhat.voice.emphasis("bittten")} in " +
+                    "den${furhat.voice.emphasis("$raumy")} an den ${furhat.voice.emphasis("$platzx")} " +
+                    "zu gehen. Ihre Dialyse fängt um $dialysebeginn an und endet um $dialyseende"
+        )
+        furhat.say("Ich hoffe ich konnte Ihnen helfen, einen ${furhat.voice.emphasis("schönen")} Tag noch")
+        furhat.gesture(Gestures.Nod())
+        furhat.gesture(Gestures.BigSmile)
+
+        //Für 8 Sekunden hört Furhat dann seinem Gesprächspartner zu, falls noch Fragen bezüglich der Platzinformation
+        //offen sind, kann furhat die informationen nochmal wiederholen. Der State wird dann nicht nochmal von vorne
+        //begonnen, sondern startet bei onReentry (Zeile 65)
+        furhat.listen(timeout = 8000)
+    }
+
+    onResponse<FrageWiederholen> {
+        furhat.attend(it.userId)
+        reentry()
+    }
+
+    onResponse<WelcherPlatzRaum> {
+        furhat.attend(it.userId)
+        reentry()
+    }
+    onNoResponse {
+        delay(6000)
+        goto(Idle)
+    }
+    onResponse<Danke> {
+        furhat.say("Ich danke ebenfalls, es war mir eine Freude")
+        delay(4000)
+        goto(Idle)
+    }
+    onResponse<Ja> {
+        goto(Idle)
+    }
+    onResponse<Nein> {
+        goto(Idle)
+    }
+    onReentry {
+        //Falls diese wiederholt werden müssen, teilt Furhat dem Gesprächspartner noch einmal die relevanten Daten mit.
+        var raumy: Any? = Benutzer!!.get("raum")
+        var platzx: Any? = Benutzer!!.get("platz")
+        var dialysebeginn: Any? = furhat.voice.sayAs(Benutzer!!.get("dialysebeginn").toString(), Voice.SayAsType.TIME)
+        furhat.say(" Ihre Dialyse beginnt um $dialysebeginn im $raumy, am $platzx")
+        delay(5000)
+        goto(Idle)
+    }
+}

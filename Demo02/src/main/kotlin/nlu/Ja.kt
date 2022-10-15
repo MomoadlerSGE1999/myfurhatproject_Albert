@@ -1,5 +1,11 @@
 import furhatos.nlu.Intent
 
+
+//Die Klassen des typs intents definieren einzelne Intensionen. Sagt ein Kunde also "Ja" oder "Genau"
+//stellen diese beiden Aussagen trotzdem die gleichen Intensionen dar.
+//In Intents sammelt man also Ausdrucksweisen, die man unter die gleichen intensionen zusammenfassen kann.
+//Das ermöglicht, dass Furhat die intension "ja" verstehen kann, obwohl der Gesprächspartner beispielsweise
+//"Das ist richtig" gesagt hat
 class Ja : Intent() {
 
     override fun getExamples(lang: furhatos.util.Language): List<String> {
@@ -27,7 +33,18 @@ class Ja : Intent() {
             "aber sicher",
             "sicher doch",
             "klar",
-            "Janna"
+            "Janna",
+            "Pia",
+            "Peer",
+            "Jara",
+            "zu holen",
+            "zu bringen",
+            "ja ich bringe jemanden",
+            "ja ich hole jemanden",
+            "Ja, stimmt",
+            "Das stimmt",
+            "Exakt",
+            "zu bringen ja"
         )
     }
 }

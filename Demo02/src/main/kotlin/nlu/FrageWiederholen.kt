@@ -1,6 +1,7 @@
 import furhatos.nlu.Intent
 import furhatos.nlu.TextGenerator
 
+//Erklärung: Vergleiche Klasse "Ja"
 class FrageWiederholen : Intent() {
 
     override fun getExamples(lang: furhatos.util.Language): List<String> {
