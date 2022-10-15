@@ -21,14 +21,14 @@ val Idle: State = state (Parent) {
             //und geht in den nächsten State "(Greetingname") über
             goto(Greetingname)
         }
-        //Falls genau 0 User in Furhat's Reichweite sind, schaut er niemanden an
+        //Falls genau 0 User in Furhat's Reichweite sind, schaut er niemanden an.
         else(
                 furhat.attendNobody()
                 )
     }
 
-    //Tritt ein user in Sichtweite Furhat's triggert der befehl onUserEnter
-    // der User wird dann in OnUserEnter mit "it" definiert.
+    //Tritt ein User in Sichtweite Furhat's triggert der Befehl onUserEnter
+    //Der User wird dann in OnUserEnter mit "it" definiert.
     onUserEnter {
         furhat.ledStrip.solid(java.awt.Color.GREEN)
         //Furhat schaut dann den User an, der mit "it" definiert ist.
