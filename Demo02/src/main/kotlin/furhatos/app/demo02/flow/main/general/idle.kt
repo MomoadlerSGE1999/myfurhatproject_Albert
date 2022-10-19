@@ -7,8 +7,9 @@ import furhatos.flow.kotlin.*
 
 val Idle: State = state (Parent) {
 
-    //onEntry gibt an, dass zu Beginn des States "Idle" folgende Befehle durchlaufen werden:
-    onEntry {
+    //Durch "init{}" wird der Code innerhalb der Klammer nur initial ausgeführt. Durchläuft die Interaktion
+    //also zum zweiten Mal den State Idle, so wird der Code innerhalb der Klammer von init nicht mehr ausgelöst
+    init {
     furhat.attendClosestUser()
         if(users.count > 0)
         {
@@ -27,14 +28,20 @@ val Idle: State = state (Parent) {
                 )
     }
 
+    //onEntry gibt an, dass zu Beginn des States "Idle" folgende Befehle durchlaufen werden:
+    onEntry {
+
     //Tritt ein User in Sichtweite Furhat's triggert der Befehl onUserEnter
-    //Der User wird dann in OnUserEnter mit "it" definiert.
+    //Der User wird in OnUserEnter mit "it" definiert.
     onUserEnter {
+
         furhat.ledStrip.solid(java.awt.Color.GREEN)
+
         //Furhat schaut dann den User an, der mit "it" definiert ist.
         furhat.attend(it)
             goto(Greetingname)
         }
+}
 }
 
 

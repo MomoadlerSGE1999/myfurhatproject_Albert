@@ -7,7 +7,8 @@ import furhatos.skills.Skill
 
 class Demo02Skill : Skill() {
     override fun start() {
-        //Hier gibt man den State an in dem die interaktion starten soll, typischerweise ist das der State Init.
+        //Hier gibt man den State an in dem die interaktion starten soll,
+        // typischerweise ist das der State Init.
         Flow().run(Init)
     }
 }

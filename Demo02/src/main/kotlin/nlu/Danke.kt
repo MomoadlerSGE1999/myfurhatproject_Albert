@@ -1,8 +1,6 @@
-package nlu
-
 import furhatos.nlu.Intent
 
-//Erklärung: Vergleiche Klasse "Ja"
+//Erklärung: Vergleiche Klasse "nlu.Ja"
 class Danke : Intent() {
 
     override fun getExamples(lang: furhatos.util.Language): List<String> {
@@ -16,3 +14,4 @@ class Danke : Intent() {
         )
     }
 }
+

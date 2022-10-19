@@ -1,3 +1,4 @@
+import furhatos.app.demo02.flow.main.readExcelNew.Platz
 import furhatos.records.User
 import org.apache.poi.ss.usermodel.Cell
 import org.apache.poi.ss.usermodel.Row
@@ -45,7 +46,7 @@ fun ReadExcelTaxi(Benutzer: User) {
             if (cellPlatz != null) {
                 val cellPlatzString: String = cellPlatz.toString()
 
-                if (cellPlatzString.startsWith("Platz")) {
+                if (cellPlatzString.startsWith("furhatos.app.demo02.flow.main.readExcelNew.Platz")) {
                     if (raum == null) {
                         for (rowIndex2 in rowIndex until sheet.lastRowNum + 1) {
 
@@ -92,7 +93,7 @@ fun ReadExcelTaxi(Benutzer: User) {
         spalte = 9
     }
 
-    var col = 3
+    var col = spalte
 
     var foundrowIndex = -1
 

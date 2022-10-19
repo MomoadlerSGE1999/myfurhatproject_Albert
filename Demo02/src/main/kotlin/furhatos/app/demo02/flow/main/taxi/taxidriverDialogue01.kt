@@ -1,25 +1,35 @@
-package furhatos.app.demo02.flow.main
+package furhatos.app.demo02.flow.main.taxi
 
+import Danke
 import FrageWiederholen
-import Ja
+import nlu.Ja
+import Nein
 import WelcherPlatzRaum
 import furhatos.app.demo02.flow.Parent
+import furhatos.app.demo02.flow.main.general.Benutzer
 import furhatos.app.demo02.flow.main.general.Idle
 import furhatos.flow.kotlin.*
 import furhatos.flow.kotlin.voice.Voice
 import furhatos.gestures.Gestures
-import nlu.Danke
-import nlu.Nein
 
-//Vergleiche Patientdialogue
+//Vergleiche patientdialogue.kt
 val Taxidriverdialogue01 : State = state(Parent){
     onEntry {
         var raumx: Any? = Benutzer!!.get("raum")
         var platzy: Any? = Benutzer!!.get("platz")
         var dialyseende: Any? = furhat.voice.sayAs(Benutzer!!.get("dialyseende").toString(), Voice.SayAsType.TIME)
-        furhat.say("${Benutzer!!.get("VornameGesprächspartner")}, Ich würde Sie bitten ihren Kunden ${Benutzer!!.get("name")} " +
-                "um $dialyseende im ${furhat.voice.emphasis("$raumx")} am ${furhat.voice.emphasis("$platzy")} abzuholen")
-        furhat.say("ich wünsche Ihnen einen schönen Tag")
+        var dialysebeginn: Any? = furhat.voice.sayAs(Benutzer!!.get("dialysebeginn").toString(), Voice.SayAsType.TIME)
+
+        furhat.say("Ich würde Sie bitten ihren Kunden " +
+                "${Benutzer!!.get("name")} im $raumx am $platzy abzuholen")
+
+        //Verzögerung um eine halbe Sekunde, um die Betonung zu optimieren.
+        delay(500)
+
+        furhat.say("Die Dialyse ihres Kunden beginnt um $dialysebeginn und endet um" +
+                "$dialyseende ich wünsche Ihnen einen schönen Tag")
+
+
         furhat.ledStrip.solid(java.awt.Color.GREEN)
         furhat.gesture(Gestures.Nod())
         furhat.gesture(Gestures.BigSmile)
@@ -29,7 +39,6 @@ val Taxidriverdialogue01 : State = state(Parent){
         furhat.attend(it.userId)
         reentry()
     }
-
     onResponse<WelcherPlatzRaum> {
         furhat.attend(it.userId)
         reentry()
@@ -57,3 +66,5 @@ val Taxidriverdialogue01 : State = state(Parent){
         goto(Idle)
     }
 }
+
+

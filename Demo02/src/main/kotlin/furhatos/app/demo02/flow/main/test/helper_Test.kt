@@ -170,7 +170,7 @@ fun userwechsel (flow: FlowControlRunner, userid: String){
                 }
                 //patientNum = cellDay.toString().substring(startIndex = 0, endIndex = 5)
                 // TODO patientname = cellDay.toString().substring(startIndex = 7)
-                //Ist die gesuchte Patientennummer = der gefundenen Patientennummer (Searchnum) dann wird der RowIndex ausgegeben und über die Reihe Platz und Raum
+                //Ist die gesuchte Patientennummer = der gefundenen Patientennummer (Searchnum) dann wird der RowIndex ausgegeben und über die Reihe furhatos.app.demo02.flow.main.readExcelNew.Platz und Raum
                 if(searchNum == patientNum){
                     println("$patientname $patientNum")
                     return rowIndex
