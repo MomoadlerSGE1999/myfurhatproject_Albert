@@ -4,17 +4,17 @@ import furhatos.nlu.Intent
 class WelcherPlatzRaum : Intent() {
     override fun getExamples(lang: furhatos.util.Language): List<String> {
         return listOf(
-            "Welcher furhatos.app.demo02.flow.main.readExcelNew.Platz",
+            "Welcher Platz",
             "Welcher Raum",
             "Welcher Raum nochmal",
-            "Welcher furhatos.app.demo02.flow.main.readExcelNew.Platz nochmal",
+            "Welcher Platz nochmal",
             "wohin muss ich nochmal",
             "Wohin", "Nochmal bitte",
             "Raum",
-            "furhatos.app.demo02.flow.main.readExcelNew.Platz",
+            "Welcher Platz",
             "Was hat er gesagt",
             "Welchen Raum",
-            "Welchen furhatos.app.demo02.flow.main.readExcelNew.Platz",
+            "Welchen Platz",
             "Wohin",
             "Wohin muss ich",
             "Wohin muss ich nochmal",
@@ -22,7 +22,7 @@ class WelcherPlatzRaum : Intent() {
             "Wohin",
             "Wo nochmal",
             "Wohin nochmal",
-            "Welcher furhatos.app.demo02.flow.main.readExcelNew.Platz nochmal",
+            "Welcher nochmal",
             "Welches Zimmer"
         )
     }

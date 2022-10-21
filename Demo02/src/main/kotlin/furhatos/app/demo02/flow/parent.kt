@@ -16,7 +16,6 @@ val Parent: State = state {
         if(users.count > 0){
             furhat.attendClosestUser()
         }
-        else(
         when {
             //Wenn der users.count = 0 ist, dann goto(Idle).
             users.count == 0 -> goto(Idle)
@@ -24,7 +23,7 @@ val Parent: State = state {
             //und kann somit mit "it" angesprochen werden.
             it == users.current -> furhat.attend(users.other)
         }
-                )
+
     }
 
     onUserEnter(instant = true) {

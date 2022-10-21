@@ -27,22 +27,17 @@ val Idle: State = state (Parent) {
                 furhat.attendNobody()
                 )
     }
-
-    //onEntry gibt an, dass zu Beginn des States "Idle" folgende Befehle durchlaufen werden:
-    onEntry {
-
     //Tritt ein User in Sichtweite Furhat's triggert der Befehl onUserEnter
     //Der User wird in OnUserEnter mit "it" definiert.
     onUserEnter {
-
         furhat.ledStrip.solid(java.awt.Color.GREEN)
 
         //Furhat schaut dann den User an, der mit "it" definiert ist.
         furhat.attend(it)
             goto(Greetingname)
-        }
 }
 }
+
 
 
 
